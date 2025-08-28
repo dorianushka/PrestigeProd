@@ -4,9 +4,9 @@ import { GRADIENT_CLASS } from '../constants';
 
 const partners = [
   {
-    name: 'SMI',
+    name: 'Swiss Mining Institute',
     logo: `${import.meta.env.VITE_CLOUDFRONT_URL}/logos/smi_logo.png`,
-    description: 'Luxury Real Estate',
+    description: 'Biggest mining conference in Europe',
     website: 'https://swissmininginstitute.ch/',
   },
   {
