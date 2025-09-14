@@ -359,7 +359,7 @@ const WhyUs = () => {
               >
                 <img
                   src={duo.image}
-                  alt={t(`whyUs.team.${duo.nameKey}.name`, 'Dorian & Alex')}
+                  alt={t(`whyUs.team.${duo.nameKey}.name`, 'Alex & Dorian')}
                   className='w-full h-auto object-cover'
                   loading='eager'
                 />
