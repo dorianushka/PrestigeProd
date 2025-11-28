@@ -1,416 +1,287 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const ValueProposition = () => {
   const { t, i18n } = useTranslation();
 
-  const swissStandards = [
+  const capabilities = [
     {
-      metric: '4K+',
-      label: t('swissStandards.quality.label', 'Video Quality'),
-      description: t(
-        'swissStandards.quality.desc',
-        'Cinema-grade equipment for crystal clear results',
-      ),
+      number: '01',
+      title: t('valueProposition.capability1.title', 'Cinematic Production'),
+      description: t('valueProposition.capability1.desc', 'Cinema-grade 4K+ equipment and techniques that transform ordinary moments into extraordinary visual narratives.'),
     },
     {
-      metric: 'Swift',
-      label: t('swissStandards.delivery.label', 'Efficient Delivery'),
-      description: t(
-        'swissStandards.delivery.desc',
-        'Premium results delivered with precision timing',
-      ),
+      number: '02',
+      title: t('valueProposition.capability2.title', 'Brand Storytelling'),
+      description: t('valueProposition.capability2.desc', 'Strategic visual content that positions your brand as the premium choice, differentiating you in competitive markets.'),
     },
     {
-      metric: (
-        <svg
-          className='w-16 h-16 md:w-20 md:h-20'
-          fill='none'
-          viewBox='0 0 24 24'
-        >
-          <defs>
-            <linearGradient
-              id='audienceMegaphoneGradient'
-              x1='0%'
-              y1='0%'
-              x2='100%'
-              y2='100%'
-            >
-              <stop offset='0%' stopColor='#9EB6A9' />
-              <stop offset='50%' stopColor='#205C57' />
-              <stop offset='100%' stopColor='#9EB6A9' />
-            </linearGradient>
-          </defs>
-          <path
-            d='M3 10v4a1 1 0 001 1h2l4 4v-14l-4 4H4a1 1 0 00-1 1zm13.5-2.5a4 4 0 010 5M17 7a7 7 0 010 10'
-            stroke='url(#audienceMegaphoneGradient)'
-            strokeWidth={1.5}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            fill='none'
-          />
-        </svg>
-      ),
-      label: t('swissStandards.projects.label', 'Audience Engagement'),
-      description: t(
-        'swissStandards.projects.desc',
-        'Boosting your reach and engagement with compelling video content',
-      ),
+      number: '03',
+      title: t('valueProposition.capability3.title', 'Swiss Precision'),
+      description: t('valueProposition.capability3.desc', 'Meticulous attention to detail, reliable timelines, and seamless collaboration from concept to final delivery.'),
     },
   ];
 
   return (
-    <section className='py-20 bg-gradient-to-b from-black via-zinc-900 to-black relative overflow-hidden'>
-      {/* Background effects */}
-      <div className='absolute inset-0 pointer-events-none'>
-        <div className='absolute top-20 right-20 w-96 h-96 bg-gradient-to-r from-[#205C57]/15 to-[#9EB6A9]/10 rounded-full blur-3xl'></div>
-        <div className='absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-r from-[#9EB6A9]/8 to-[#205C57]/12 rounded-full blur-3xl'></div>
-        {/* Swiss precision grid overlay */}
+    <section className='relative overflow-hidden' style={{ background: '#0a0a0a' }}>
+      {/* First block - Centered statement */}
+      <div className='relative py-32 md:py-48'>
+        {/* Subtle background accent */}
         <div
-          className='absolute inset-0 opacity-[0.02]'
+          className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-[0.03]'
           style={{
-            backgroundImage: `linear-gradient(#EAEBEC 1px, transparent 1px), linear-gradient(90deg, #EAEBEC 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
+            background: 'radial-gradient(circle, #9EB6A9 0%, transparent 70%)',
           }}
-        ></div>
+        />
+
+        <div className='relative z-10 max-w-5xl mx-auto px-6 md:px-12 lg:px-20 text-center'>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+            viewport={{ once: true }}
+          >
+            {/* Overline */}
+            <span
+              className='inline-block text-[11px] tracking-[0.3em] uppercase mb-8'
+              style={{ color: '#9EB6A9' }}
+            >
+              {t('valueProposition.overline', 'Our Philosophy')}
+            </span>
+
+            {/* Main statement */}
+            <h2
+              className='font-serif text-[clamp(1.8rem,4vw,3rem)] leading-[1.3] tracking-[-0.01em] mb-8'
+              style={{ color: '#EAEBEC' }}
+            >
+              {t('valueProposition.mainStatement', 'We believe that exceptional visuals are not merely produced—they are crafted with intention, refined with precision, and delivered with the understanding that your brand deserves nothing less than extraordinary.')}
+            </h2>
+
+            {/* Divider */}
+            <div
+              className='w-16 h-px mx-auto'
+              style={{ background: 'linear-gradient(90deg, transparent, #9EB6A9, transparent)' }}
+            />
+          </motion.div>
+        </div>
       </div>
 
-      <div className='relative z-10 max-w-7xl mx-auto px-6'>
-        {/* Main heading */}
-        <div className='text-center mb-20'>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            viewport={{ once: true }}
-            className='text-4xl md:text-6xl lg:text-7xl font-light text-white mb-8 tracking-tight leading-[1.1]'
-          >
-            {t('valueProposition.title', 'Professional video & photography')}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.2,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            viewport={{ once: true }}
-            className='text-xl md:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed font-light'
-          >
-            {t('valueProposition.subtitle', 'High-quality visual content that showcases your business professionally and drives results.')}
-          </motion.p>
-        </div>
-
-        {/* Swiss standards grid */}
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-12 mb-24'>
-          {swissStandards.map((standard, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: index * 0.15,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              viewport={{ once: true }}
-              className='text-center group relative'
-            >
-              {/* Swiss precision border */}
-              <div className='absolute inset-0 rounded-2xl border border-white/5 group-hover:border-[#9EB6A9]/30 transition-colors duration-500'></div>
-              <div className='relative p-8'>
-                <div className='relative inline-block mb-8'>
-                  <div className='text-7xl md:text-8xl font-extralight text-transparent bg-gradient-to-br from-[#9EB6A9] via-[#205C57] to-[#9EB6A9] bg-clip-text mb-2 group-hover:scale-105 transition-transform duration-500 ease-out tracking-tight'>
-                    {standard.metric}
-                  </div>
-                  <div className='absolute -inset-8 bg-gradient-to-r from-[#9EB6A9]/5 to-[#205C57]/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700'></div>
-                </div>
-                <h3 className='text-xl md:text-2xl font-medium text-white mb-4 tracking-wide'>
-                  {standard.label}
+      {/* Second block - Capabilities */}
+      <div className='relative py-24 md:py-32 border-t border-white/5'>
+        <div className='max-w-7xl mx-auto px-6 md:px-12 lg:px-20'>
+          <div className='grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20'>
+            {/* Left column - Section header */}
+            <div className='lg:col-span-4'>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className='lg:sticky lg:top-32'
+              >
+                <span
+                  className='inline-block text-[11px] tracking-[0.3em] uppercase mb-6'
+                  style={{ color: '#9EB6A9' }}
+                >
+                  {t('valueProposition.capabilitiesOverline', 'What We Offer')}
+                </span>
+                <h3
+                  className='font-serif text-[clamp(2rem,4vw,2.5rem)] leading-[1.15] tracking-[-0.02em] mb-6'
+                  style={{ color: '#EAEBEC' }}
+                >
+                  {t('valueProposition.capabilitiesTitle', 'Capabilities')}
                 </h3>
-                <p className='text-white/70 leading-relaxed text-lg font-light max-w-xs mx-auto'>
-                  {standard.description}
-                </p>
+                <div
+                  className='w-12 h-px'
+                  style={{ background: 'linear-gradient(90deg, #9EB6A9, transparent)' }}
+                />
+              </motion.div>
+            </div>
+
+            {/* Right column - Capabilities list */}
+            <div className='lg:col-span-8'>
+              <div className='space-y-16 md:space-y-20'>
+                {capabilities.map((capability, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className='group'
+                  >
+                    <div className='flex gap-6 md:gap-10'>
+                      {/* Number */}
+                      <span
+                        className='text-sm font-light tracking-wider pt-1'
+                        style={{ color: 'rgba(158, 182, 169, 0.5)' }}
+                      >
+                        {capability.number}
+                      </span>
+
+                      {/* Content */}
+                      <div className='flex-1'>
+                        <h4
+                          className='font-serif text-2xl md:text-3xl leading-tight tracking-[-0.01em] mb-4 transition-colors duration-300 group-hover:text-[#9EB6A9]'
+                          style={{ color: '#EAEBEC' }}
+                        >
+                          {capability.title}
+                        </h4>
+                        <p
+                          className='text-lg leading-relaxed max-w-xl'
+                          style={{ color: 'rgba(234, 235, 236, 0.6)', fontWeight: 300 }}
+                        >
+                          {capability.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Separator */}
+                    {index < capabilities.length - 1 && (
+                      <div
+                        className='mt-16 md:mt-20 h-px ml-12 md:ml-16'
+                        style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.05), transparent)' }}
+                      />
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Third block - Social proof */}
+      <div className='relative py-32 md:py-40 border-t border-white/5'>
+        <div className='max-w-7xl mx-auto px-6 md:px-12 lg:px-20'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center'>
+            {/* Left - Big number */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className='text-center lg:text-left'
+            >
+              <div
+                className='font-serif text-[clamp(6rem,15vw,12rem)] leading-none tracking-[-0.03em]'
+                style={{
+                  background: 'linear-gradient(135deg, #9EB6A9 0%, #205C57 50%, #9EB6A9 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                100%
+              </div>
+              <p
+                className='text-lg md:text-xl mt-4'
+                style={{ color: 'rgba(234, 235, 236, 0.7)', fontWeight: 300 }}
+              >
+                {t('valueProposition.satisfactionLabel', 'Client satisfaction rate')}
+              </p>
+            </motion.div>
+
+            {/* Right - Testimonial style content */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <span
+                className='inline-block text-[11px] tracking-[0.3em] uppercase mb-8'
+                style={{ color: '#9EB6A9' }}
+              >
+                {t('valueProposition.trustedByOverline', 'Trusted By')}
+              </span>
+
+              <p
+                className='font-serif text-2xl md:text-3xl leading-relaxed mb-10'
+                style={{ color: '#EAEBEC' }}
+              >
+                {t('valueProposition.trustedByStatement', 'From prestigious real estate agencies to leading industry conferences, our clients choose us for our unwavering commitment to quality and our ability to elevate their visual presence.')}
+              </p>
+
+              {/* Client logos */}
+              <div className='flex items-center gap-10'>
+                <img
+                  src='/assets/logos/zurich_sothebys_logo.png'
+                  alt="Zurich Sotheby's"
+                  className='h-8 md:h-10 opacity-60 hover:opacity-100 transition-opacity duration-300 filter brightness-0 invert'
+                />
+                <div className='w-px h-8 bg-white/10' />
+                <img
+                  src='/assets/logos/smi_logo.png'
+                  alt='Swiss Mining Institute'
+                  className='h-8 md:h-10 opacity-60 hover:opacity-100 transition-opacity duration-300 filter brightness-0 invert'
+                />
               </div>
             </motion.div>
-          ))}
+          </div>
         </div>
+      </div>
 
-        {/* Swiss advantage section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className='relative'
-        >
-          <div className='absolute inset-0 bg-gradient-to-br from-[#205C57]/8 via-black/50 to-[#9EB6A9]/8 rounded-3xl blur-xl'></div>
-          <div className='relative bg-gradient-to-br from-white/[0.12] via-white/[0.05] to-white/[0.12] backdrop-blur-xl rounded-3xl p-10 md:p-16 border border-white/20 shadow-2xl'>
-            <div className='text-center mb-16'>
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-                viewport={{ once: true }}
-                className='inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#9EB6A9]/20 to-[#205C57]/20 border border-[#9EB6A9]/30 rounded-full mb-8 backdrop-blur-sm'
+      {/* CTA block */}
+      <div className='relative py-24 md:py-32 border-t border-white/5'>
+        <div className='max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center'>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h3
+              className='font-serif text-[clamp(1.8rem,4vw,2.5rem)] leading-[1.2] tracking-[-0.01em] mb-10'
+              style={{ color: '#EAEBEC' }}
+            >
+              {t('valueProposition.ctaHeadline', 'Ready to elevate your brand\'s visual presence?')}
+            </h3>
+
+            <div className='flex flex-col sm:flex-row gap-5 justify-center'>
+              <Link
+                to={`/${i18n.language}/contact`}
+                className='group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden transition-all duration-300'
+                style={{
+                  background: '#EAEBEC',
+                  color: '#0a0a0a',
+                }}
               >
-                <svg
-                  className='w-5 h-5 text-[#9EB6A9] mr-3'
-                  fill='currentColor'
-                  viewBox='0 0 20 20'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-                <span className='text-[#9EB6A9] font-medium tracking-wide'>
-                  {t('valueProposition.whyChooseUs', 'Why choose us')}
+                <span className='relative z-10 text-sm tracking-[0.15em] uppercase font-medium'>
+                  {t('valueProposition.ctaPrimary', 'Get Your Quote')}
                 </span>
-              </motion.div>
-
-              <h3 className='text-4xl md:text-5xl lg:text-6xl font-light text-white mb-6 tracking-tight leading-[1.1]'>
-                {t('valueProposition.provenResults', 'Proven results, trusted by industry leaders')}
-              </h3>
-              <p className='text-xl md:text-2xl text-white/80 max-w-4xl mx-auto mb-12 leading-relaxed font-light'>
-                {t('valueProposition.trackRecord', 'Our track record speaks for itself: premium brands choose us for guaranteed quality, measurable engagement, and Swiss reliability.')}
-              </p>
-            </div>
-
-            {/* Proven results showcase */}
-            <div className='space-y-20'>
-              {/* First row - Trust & Quality */}
-              <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch'>
-                {/* High Quality Deliverables */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-                  viewport={{ once: true }}
-                  className='flex flex-col'
-                >
-                  <div className='inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#9EB6A9]/20 to-[#205C57]/20 border border-[#9EB6A9]/30 rounded-full backdrop-blur-sm w-fit mb-8'>
-                    <svg className='w-5 h-5 text-[#9EB6A9] mr-3' fill='currentColor' viewBox='0 0 20 20'>
-                      <path fillRule='evenodd' d='M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z' clipRule='evenodd' />
-                    </svg>
-                    <span className='text-[#9EB6A9] font-medium tracking-wide'>{t('valueProposition.premiumQuality', 'Premium quality')}</span>
-                  </div>
-                  
-                  <h4 className='text-3xl md:text-4xl font-light text-white tracking-wide leading-tight mb-6'>
-                    {t('valueProposition.trustedByLeaders', 'Trusted by industry leaders')}
-                  </h4>
-                  
-                  <p className='text-xl text-white/70 leading-relaxed mb-8 flex-grow'>
-                    {t('valueProposition.trustedByLeadersDesc')}
-                  </p>
-                  
-                  <div className='flex items-center space-x-6'>
-                    <img 
-                      src='/assets/logos/zurich_sothebys_logo.png' 
-                      alt='Zurich Sothebys Realty'
-                      className='h-10 opacity-80 filter brightness-0 invert'
-                    />
-                    <div className='w-px h-10 bg-white/20'></div>
-                    <img 
-                      src='/assets/logos/smi_logo.png' 
-                      alt='SMI Management'
-                      className='h-10 opacity-80 filter brightness-0 invert'
-                    />
-                  </div>
-                </motion.div>
-
-                {/* Satisfaction Rate */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-                  viewport={{ once: true }}
-                  className='flex'
-                >
-                  <div className='bg-gradient-to-br from-[#9EB6A9]/10 to-[#205C57]/10 rounded-3xl p-8 md:p-12 border border-[#9EB6A9]/20 backdrop-blur-sm flex flex-col justify-center items-center text-center w-full'>
-                    <div className='text-6xl md:text-8xl lg:text-9xl font-extralight text-transparent bg-gradient-to-br from-[#9EB6A9] to-[#205C57] bg-clip-text mb-4'>
-                      100%
-                    </div>
-                    <div className='text-lg md:text-xl text-white/80 mb-2'>{t('valueProposition.clientSatisfactionRate', 'Client satisfaction rate')}</div>
-                    <div className='text-[#9EB6A9] text-sm'>{t('valueProposition.basedOnClientFeedback', 'Based on post-project client feedback')}</div>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Second row - Creative Impact */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-                viewport={{ once: true }}
-                className='text-center'
-              >
-                <div className='inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#205C57]/20 to-[#9EB6A9]/20 border border-[#9EB6A9]/30 rounded-full backdrop-blur-sm mb-8'>
-                  <svg className='w-5 h-5 text-[#9EB6A9] mr-3' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M13 10V3L4 14h7v7l9-11h-7z' />
-                  </svg>
-                  <span className='text-[#9EB6A9] font-medium tracking-wide'>{t('valueProposition.creativeImpact', 'Creative impact')}</span>
-                </div>
-                
-                <h4 className='text-3xl md:text-4xl font-light text-white tracking-wide leading-tight max-w-3xl mx-auto mb-12'>
-                  {t('valueProposition.premiumContentCreation', 'Content that transforms how clients perceive your brand')}
-                </h4>
-                
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto'>
-                  <div className='bg-gradient-to-br from-[#9EB6A9]/5 to-[#205C57]/5 rounded-2xl p-8 border border-[#9EB6A9]/10 text-left'>
-                    <div className='flex items-center mb-6'>
-                      <div className='w-3 h-3 bg-[#9EB6A9] rounded-full mr-4'></div>
-                      <h5 className='text-xl text-white/90 font-medium'>{t('valueProposition.brandElevation', 'Brand elevation')}</h5>
-                    </div>
-                    <p className='text-white/70 leading-relaxed mb-4'>
-                      {t('valueProposition.brandElevationDesc', 'Our visual storytelling positions you as the premium choice in your market, immediately differentiating you from competitors.')}
-                    </p>
-                    <div className='text-[#9EB6A9] text-sm font-medium'>
-                      {t('valueProposition.brandResult', 'Result: Enhanced brand perception and market positioning')}
-                    </div>
-                  </div>
-                  
-                  <div className='bg-gradient-to-br from-[#9EB6A9]/5 to-[#205C57]/5 rounded-2xl p-8 border border-[#9EB6A9]/10 text-left'>
-                    <div className='flex items-center mb-6'>
-                      <div className='w-3 h-3 bg-[#9EB6A9] rounded-full mr-4'></div>
-                      <h5 className='text-xl text-white/90 font-medium'>{t('valueProposition.clientTrust', 'Client trust & credibility')}</h5>
-                    </div>
-                    <p className='text-white/70 leading-relaxed mb-4'>
-                      {t('valueProposition.clientTrustDesc', 'Professional visuals build immediate trust with potential clients, reducing sales cycles and increasing conversion rates across all market segments.')}
-                    </p>
-                    <div className='text-[#9EB6A9] text-sm font-medium'>
-                      {t('valueProposition.trustResult', 'Result: Faster client acquisition and improved conversion rates')}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Third row - Swiss Excellence */}
-              <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch'>
-                {/* Company Stats */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-                  viewport={{ once: true }}
-                  className='flex'
-                >
-                  <div className='bg-gradient-to-br from-[#9EB6A9]/10 to-[#205C57]/10 rounded-3xl p-8 md:p-12 border border-[#9EB6A9]/20 backdrop-blur-sm flex flex-col justify-center text-center w-full'>
-                    <div className='text-5xl md:text-6xl lg:text-7xl font-extralight text-transparent bg-gradient-to-br from-[#9EB6A9] to-[#205C57] bg-clip-text mb-4'>
-                      2024
-                    </div>
-                    <div className='text-lg md:text-xl text-white/80 mb-2'>{t('valueProposition.establishedYear', 'Established')}</div>
-                    <div className='text-[#9EB6A9] text-sm mb-8'>{t('valueProposition.basedInZurich', 'Based in Zurich, Switzerland')}</div>
-                    
-                    <div className='space-y-4 text-sm'>
-                      <div className='flex items-center justify-between px-4 py-3 bg-white/[0.02] rounded-lg border border-white/5'>
-                        <span className='text-white/70'>{t('valueProposition.projectROI', 'Average project ROI')}</span>
-                        <span className='text-[#9EB6A9] font-medium'>{t('valueProposition.threeToFiveX', '3-5x')}</span>
-                      </div>
-                      <div className='flex items-center justify-between px-4 py-3 bg-white/[0.02] rounded-lg border border-white/5'>
-                        <span className='text-white/70'>{t('valueProposition.clientRetention', 'Client retention rate')}</span>
-                        <span className='text-[#9EB6A9] font-medium'>{t('valueProposition.oneHundredPercent', '100%')}</span>
-                      </div>
-                      <div className='flex items-center justify-between px-4 py-3 bg-white/[0.02] rounded-lg border border-white/5'>
-                        <span className='text-white/70'>{t('valueProposition.responseTime', 'Response time')}</span>
-                        <span className='text-[#9EB6A9] font-medium'>{t('valueProposition.within24h', '< 24 hours')}</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Swiss Excellence */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                  viewport={{ once: true }}
-                  className='flex flex-col'
-                >
-                  <div className='inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#9EB6A9]/20 to-[#205C57]/20 border border-[#9EB6A9]/30 rounded-full backdrop-blur-sm w-fit mb-8'>
-                    <svg className='w-5 h-5 text-[#9EB6A9] mr-3' fill='currentColor' viewBox='0 0 20 20'>
-                      <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z' clipRule='evenodd' />
-                    </svg>
-                    <span className='text-[#9EB6A9] font-medium tracking-wide'>{t('valueProposition.swissExcellence', 'Proven excellence')}</span>
-                  </div>
-                  
-                  <h4 className='text-3xl md:text-4xl font-light text-white tracking-wide leading-tight mb-8'>
-                    {t('valueProposition.prestigeFromDay1', 'Trusted by prestige from day one')}
-                  </h4>
-                  
-                  <div className='space-y-6 flex-grow'>
-                    <div className='flex items-start space-x-4'>
-                      <div className='w-2 h-2 bg-[#9EB6A9] rounded-full mt-3 flex-shrink-0'></div>
-                      <div>
-                        <div className='text-white/90 text-lg font-medium mb-1'>{t('valueProposition.professionalApproach', 'Professional approach')}</div>
-                        <div className='text-white/70'>{t('valueProposition.professionalApproachDesc', 'We deliver the same high standards and attention to detail for every client, regardless of project size or industry')}</div>
-                      </div>
-                    </div>
-                    
-                    <div className='flex items-start space-x-4'>
-                      <div className='w-2 h-2 bg-[#9EB6A9] rounded-full mt-3 flex-shrink-0'></div>
-                      <div>
-                        <div className='text-white/90 text-lg font-medium mb-1'>{t('valueProposition.clientFocus', 'Client focus')}</div>
-                        <div className='text-white/70'>{t('valueProposition.clientFocusDesc', 'We adapt our approach to meet each client\'s unique needs and goals, ensuring personalized solutions that deliver maximum impact for their specific market and objectives')}</div>
-                      </div>
-                    </div>
-                    
-                    <div className='flex items-start space-x-4'>
-                      <div className='w-2 h-2 bg-[#9EB6A9] rounded-full mt-3 flex-shrink-0'></div>
-                      <div>
-                        <div className='text-white/90 text-lg font-medium mb-1'>{t('valueProposition.qualityFocus', 'Quality over quantity approach')}</div>
-                        <div className='text-white/70'>{t('valueProposition.qualityFocusDesc', 'Selective client approach ensures dedicated attention and exceptional results for every project')}</div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* CTA section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-          viewport={{ once: true }}
-          className='text-center mt-20'
-        >
-          <h3 className='text-3xl md:text-4xl font-light text-white mb-10 tracking-wide leading-relaxed'>
-            {t('valueProposition.ctaTitle', 'Ready to create professional video & photo content?')}
-          </h3>
-          <div className='flex flex-col sm:flex-row gap-6 justify-center'>
-            <a
-              href={`/${i18n.language}/contact`}
-              className='group inline-flex items-center px-10 py-5 bg-gradient-to-r from-[#205C57] to-[#9EB6A9] text-black font-semibold text-lg rounded-full hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:from-[#9EB6A9] hover:to-[#205C57]'
-            >
-              {t('valueProposition.ctaQuote', 'Get your free quote')}
-              <svg
-                className='w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-300'
-                fill='none'
-                stroke='currentColor'
-                viewBox='0 0 24 24'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M9 5l7 7-7 7'
+                <span
+                  className='absolute inset-0 bg-[#9EB6A9] transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out'
                 />
-              </svg>
-            </a>
-            <a
-              href={`/${i18n.language}/portfolio`}
-              className='inline-flex items-center px-10 py-5 bg-white/[0.08] backdrop-blur-xl text-white border border-white/20 text-lg font-medium rounded-full hover:border-[#9EB6A9]/60 hover:bg-white/[0.12] transition-all duration-500 hover:scale-105'
-            >
-              {t('valueProposition.ctaWork', 'View our work')}
-            </a>
-          </div>
-        </motion.div>
+                <span className='relative z-10 ml-3 group-hover:translate-x-1 transition-transform duration-300'>
+                  <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                  </svg>
+                </span>
+              </Link>
+
+              <Link
+                to={`/${i18n.language}/portfolio`}
+                className='group inline-flex items-center justify-center px-10 py-5 transition-all duration-300'
+                style={{
+                  color: '#EAEBEC',
+                  border: '1px solid rgba(234, 235, 236, 0.2)',
+                }}
+              >
+                <span className='text-sm tracking-[0.15em] uppercase font-medium'>
+                  {t('valueProposition.ctaSecondary', 'View Portfolio')}
+                </span>
+                <span className='ml-3 group-hover:translate-x-1 transition-transform duration-300'>
+                  <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                  </svg>
+                </span>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -52,6 +52,7 @@ const AppContent = () => {
       <ScrollProgress />
       <Navbar />
       <Background />
+      <main className='pt-[72px] lg:pt-[88px]'>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='portfolio' element={<Portfolio />} />
@@ -65,6 +66,7 @@ const AppContent = () => {
           element={<PenthouseZurichProject />}
         />
       </Routes>
+      </main>
       <Footer />
     </>
   );

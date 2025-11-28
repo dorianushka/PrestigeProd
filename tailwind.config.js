@@ -28,7 +28,19 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Montserrat', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        // Editorial Luxury Typography System
+        serif: ['Cormorant Garamond', 'Georgia', 'Times New Roman', 'serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['Cormorant Garamond', 'Georgia', 'serif'],
+      },
+      fontSize: {
+        // Editorial scale with generous sizing
+        'display-xl': ['clamp(3.5rem, 8vw, 7rem)', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
+        'display-lg': ['clamp(2.5rem, 5vw, 4.5rem)', { lineHeight: '1.1', letterSpacing: '-0.015em' }],
+        'display-md': ['clamp(2rem, 4vw, 3rem)', { lineHeight: '1.15', letterSpacing: '-0.01em' }],
+        'editorial-xl': ['1.5rem', { lineHeight: '1.6', letterSpacing: '0.01em' }],
+        'editorial-lg': ['1.25rem', { lineHeight: '1.7', letterSpacing: '0.015em' }],
+        'editorial-base': ['1.125rem', { lineHeight: '1.8', letterSpacing: '0.02em' }],
       },
     },
     plugins: [],

@@ -260,7 +260,7 @@ const VideoCarousel = () => {
   return (
     <>
       <div
-        className={`flex items-center ${
+        className={`flex items-center pl-[6vw] sm:pl-[15vw] ${
           isDragging.current ? 'cursor-grabbing' : 'cursor-grab'
         }`}
         ref={sliderRef}
@@ -299,7 +299,16 @@ const VideoCarousel = () => {
 
               <div className='absolute top-12 left-[5%] z-10'>
                 {list.textLists.map((text, idx) => (
-                  <p key={idx} className='md:text-3xl text-xl font-medium'>
+                  <p
+                    key={idx}
+                    className='md:text-3xl text-xl'
+                    style={{
+                      fontFamily: "'Cormorant Garamond', Georgia, serif",
+                      fontWeight: 400,
+                      letterSpacing: '-0.01em',
+                      color: 'rgba(255, 255, 255, 0.9)',
+                    }}
+                  >
                     {text}
                   </p>
                 ))}
@@ -310,33 +319,50 @@ const VideoCarousel = () => {
       </div>
 
       <div className='relative flex-center mt-10'>
-        <div className='flex-center py-5 px-7 bg-gray-300 backdrop-blur rounded-full'>
+        <div
+          className='flex-center py-4 px-6 rounded-full border'
+          style={{
+            background: 'rgba(10, 10, 10, 0.8)',
+            borderColor: 'rgba(158, 182, 169, 0.15)',
+            backdropFilter: 'blur(12px)',
+          }}
+        >
           {videoRef.current.map((_, i) => (
             <span
               key={i}
-              className='mx-2 w-3 h-3 bg-gray-200 rounded-full relative cursor-pointer'
+              className='mx-2 w-2.5 h-2.5 rounded-full relative cursor-pointer transition-all duration-300 hover:scale-125'
+              style={{ background: 'rgba(158, 182, 169, 0.25)' }}
               ref={el => (videoDivRef.current[i] = el)}
               onClick={() => handleProcess('set-video', i)}
             >
               <span
                 className='absolute h-full w-full rounded-full'
+                style={{ background: '#9EB6A9' }}
                 ref={el => (videoSpanRef.current[i] = el)}
               />
             </span>
           ))}
         </div>
 
-        <button className='control-btn'>
+        <button
+          className='ml-4 p-3.5 rounded-full border transition-all duration-300 hover:border-[#9EB6A9]/40'
+          style={{
+            background: 'rgba(10, 10, 10, 0.8)',
+            borderColor: 'rgba(158, 182, 169, 0.15)',
+            backdropFilter: 'blur(12px)',
+          }}
+          onClick={
+            isLastVideo
+              ? () => handleProcess('video-reset')
+              : !isPlaying
+              ? () => handleProcess('play')
+              : () => handleProcess('pause')
+          }
+        >
           <img
             src={isLastVideo ? replayImg : !isPlaying ? playImg : pauseImg}
             alt={isLastVideo ? 'replay' : !isPlaying ? 'play' : 'pause'}
-            onClick={
-              isLastVideo
-                ? () => handleProcess('video-reset')
-                : !isPlaying
-                ? () => handleProcess('play')
-                : () => handleProcess('pause')
-            }
+            className='w-4 h-4 opacity-70'
           />
         </button>
       </div>

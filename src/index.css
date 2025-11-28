@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind utilities;
 
+/* ============================================================================
+   EDITORIAL LUXURY - Typography & Base Styles
+   ============================================================================ */
+
 html {
   scroll-behavior: smooth;
 }
@@ -9,8 +13,47 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 300; /* Utiliser Light (300) comme poids par défaut */
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editorial Display Typography */
+.font-editorial {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.editorial-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.editorial-subheading {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+/* Editorial Divider */
+.editorial-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #9EB6A9, transparent);
+}
+
+.editorial-divider-vertical {
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(180deg, transparent, #9EB6A9 50%, transparent);
 }
 
 @keyframes text-reveal {
@@ -43,6 +86,7 @@ body {
   background: #000;
   border-color: #3b3b3b;
   user-select: none;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 canvas {

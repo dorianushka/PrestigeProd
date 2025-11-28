@@ -1,16 +1,42 @@
-import { useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { logoImg } from '../utils';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'en';
 
-  // Liste des éléments de navigation avec traduction
+  // Track scroll for navbar background transition
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
   const navItems = [
     { label: t('nav.home'), path: `/${currentLang}/` },
     { label: t('nav.portfolio'), path: `/${currentLang}/portfolio` },
@@ -18,129 +44,211 @@ const Navbar = () => {
     { label: t('nav.whyUs'), path: `/${currentLang}/why-us` },
   ];
 
-  // Déterminer le chemin actuel sans le préfixe de langue pour la comparaison
   const currentPath = location.pathname.split('/').slice(2).join('/');
   const formattedCurrentPath = currentPath || '';
 
   return (
-    <header className='w-full py-5 sm:px-10 px-5 bg-black backdrop-blur-lg z-50 sticky top-0 left-0'>
-      <nav className='relative flex items-center justify-between screen-max-width mx-auto'>
-        {/* Logo */}
-        <Link to={`/${currentLang}/`}>
-          <img src={logoImg} alt='Logo' width={32} height={32} />
+    <header
+      className={`w-full fixed top-0 left-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'py-3 bg-black/90 backdrop-blur-xl border-b border-white/5'
+          : 'py-6 bg-transparent'
+      }`}
+    >
+      {/* Decorative top accent line */}
+      <div className='absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-pp-sage/40 to-transparent' />
+
+      <nav className='relative flex items-center justify-between max-w-7xl mx-auto px-6 lg:px-10'>
+        {/* Logo with refined hover */}
+        <Link
+          to={`/${currentLang}/`}
+          className='relative group flex items-center gap-3'
+        >
+          <div className='relative'>
+            <img
+              src={logoImg}
+              alt='Prestige Production'
+              className='w-8 h-8 transition-transform duration-500 group-hover:scale-110'
+            />
+            {/* Logo glow on hover */}
+            <div className='absolute inset-0 bg-pp-sage/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+          </div>
+          <span className='hidden sm:block font-serif text-lg tracking-wide text-white/90 group-hover:text-white transition-colors duration-300'>
+            Prestige Production
+          </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className='hidden md:flex flex-1 items-center justify-center gap-8'>
-          {navItems.map(({ label, path }) => {
-            // Extraire le chemin relatif sans le préfixe de langue
+        {/* Desktop Navigation */}
+        <div className='hidden lg:flex items-center gap-1'>
+          {navItems.map(({ label, path }, index) => {
             const relativePath = path.split('/').slice(2).join('/');
+            const isActive = formattedCurrentPath === relativePath;
 
             return (
               <Link
                 key={path}
                 to={path}
-                className={`relative text-sm font-light tracking-wide text-gray hover:text-white transition-all pb-1 group ${
-                  formattedCurrentPath === relativePath
-                    ? 'text-white font-normal'
-                    : ''
-                }`}
+                className='relative px-5 py-2 group'
               >
-                {label}
-                <span className='absolute bottom-0 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full'></span>
+                {/* Nav link text */}
+                <span className={`relative z-10 text-[13px] uppercase tracking-[0.2em] transition-colors duration-300 ${
+                  isActive
+                    ? 'text-white'
+                    : 'text-white/60 group-hover:text-white'
+                }`}>
+                  {label}
+                </span>
+
+                {/* Active indicator - subtle dot */}
+                {isActive && (
+                  <span className='absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-pp-sage' />
+                )}
+
+                {/* Hover underline animation */}
+                <span className='absolute bottom-0 left-1/2 w-0 h-[1px] bg-gradient-to-r from-transparent via-pp-sage to-transparent group-hover:w-full group-hover:left-0 transition-all duration-500 ease-out' />
               </Link>
             );
           })}
-
-          {/* Desktop Language Switcher */}
-          <LanguageSwitcher />
         </div>
 
-        {/* CTA Contact */}
-        <div className='hidden md:flex'>
+        {/* Right side - Language + CTA */}
+        <div className='hidden lg:flex items-center gap-6'>
+          <LanguageSwitcher />
+
+          {/* Refined CTA Button */}
           <Link
             to={`/${currentLang}/contact`}
-            className='border border-white px-6 py-2 rounded-full text-sm text-white font-medium hover:bg-white hover:text-black transition-all duration-300'
+            className='relative group overflow-hidden'
           >
-            {t('nav.contact')}
+            <span className='relative z-10 inline-flex items-center gap-2 px-6 py-2.5 text-[12px] uppercase tracking-[0.15em] text-white border border-white/30 rounded-full transition-all duration-500 group-hover:border-pp-sage group-hover:text-black'>
+              {t('nav.contact')}
+              {/* Arrow icon */}
+              <svg
+                className='w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+              >
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+              </svg>
+            </span>
+            {/* Button fill animation */}
+            <span className='absolute inset-0 bg-pp-sage scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out rounded-full' />
           </Link>
         </div>
 
-        {/* Hamburger for mobile */}
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setMenuOpen(open => !open)}
-          className='md:hidden flex items-center justify-center p-2 z-50 active:bg-white/10 rounded-md transition-colors touch-manipulation'
+          className='lg:hidden relative w-10 h-10 flex items-center justify-center'
           aria-label='Toggle menu'
           aria-expanded={menuOpen}
         >
-          <div className='space-y-1.5 w-6'>
+          <div className='relative w-6 h-5 flex flex-col justify-between'>
             <span
-              className={`block w-6 h-0.5 bg-white transform transition-all duration-300 ease-in-out ${
-                menuOpen ? 'rotate-45 translate-y-2' : ''
+              className={`block w-full h-[1.5px] bg-white transform origin-center transition-all duration-300 ${
+                menuOpen ? 'rotate-45 translate-y-[9px]' : ''
               }`}
-            ></span>
+            />
             <span
-              className={`block w-6 h-0.5 bg-white transition-all duration-300 ease-in-out ${
-                menuOpen ? 'opacity-0 translate-x-3' : ''
+              className={`block w-full h-[1.5px] bg-white transition-all duration-300 ${
+                menuOpen ? 'opacity-0 scale-x-0' : ''
               }`}
-            ></span>
+            />
             <span
-              className={`block w-6 h-0.5 bg-white transform transition-all duration-300 ease-in-out ${
-                menuOpen ? '-rotate-45 -translate-y-2' : ''
+              className={`block w-full h-[1.5px] bg-white transform origin-center transition-all duration-300 ${
+                menuOpen ? '-rotate-45 -translate-y-[9px]' : ''
               }`}
-            ></span>
+            />
           </div>
         </button>
+      </nav>
 
-        {/* Mobile dropdown - Increased height to accommodate inline language selector */}
-        <div
-          className={`fixed top-[70px] left-0 right-0 w-full bg-black/95 backdrop-blur-md border-t border-white/10 md:hidden transition-all duration-300 ease-in-out ${
-            menuOpen ? 'opacity-100 visible h-auto' : 'opacity-0 invisible h-0'
-          } overflow-hidden z-50`}
-        >
-          <div className='flex flex-col items-center py-6 gap-4 w-full px-6 max-h-[80vh] overflow-y-auto'>
-            {navItems.map(({ label, path }) => {
-              // Extraire le chemin relatif sans le préfixe de langue
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 bg-black/95 backdrop-blur-xl lg:hidden transition-all duration-500 ${
+          menuOpen
+            ? 'opacity-100 visible'
+            : 'opacity-0 invisible pointer-events-none'
+        }`}
+        style={{ top: '0' }}
+      >
+        {/* Close area padding for header */}
+        <div className='h-20' />
+
+        {/* Menu content */}
+        <div className='flex flex-col items-center justify-center min-h-[calc(100vh-160px)] px-6'>
+          {/* Decorative element */}
+          <div className='absolute top-1/4 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-pp-sage/30 to-transparent' />
+
+          {/* Nav links with staggered animation */}
+          <nav className='flex flex-col items-center gap-2 mb-12'>
+            {navItems.map(({ label, path }, index) => {
               const relativePath = path.split('/').slice(2).join('/');
+              const isActive = formattedCurrentPath === relativePath;
 
               return (
                 <Link
                   key={path}
                   to={path}
                   onClick={() => setMenuOpen(false)}
-                  className={`text-base text-gray hover:text-white transition px-4 py-2 w-full max-w-[200px] text-center touch-manipulation ${
-                    formattedCurrentPath === relativePath
-                      ? 'text-white font-normal'
-                      : ''
+                  className={`relative py-3 transition-all duration-500 ${
+                    menuOpen
+                      ? 'opacity-100 translate-y-0'
+                      : 'opacity-0 translate-y-4'
                   }`}
+                  style={{ transitionDelay: menuOpen ? `${index * 75}ms` : '0ms' }}
                 >
-                  {label}
+                  <span className={`font-serif text-3xl sm:text-4xl tracking-wide transition-colors duration-300 ${
+                    isActive
+                      ? 'text-pp-sage'
+                      : 'text-white/80 hover:text-white'
+                  }`}>
+                    {label}
+                  </span>
+                  {isActive && (
+                    <span className='absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-pp-sage/60' />
+                  )}
                 </Link>
               );
             })}
-            <Link
-              to={`/${currentLang}/contact`}
-              onClick={() => setMenuOpen(false)}
-              className='mt-2 border border-white px-8 py-2 rounded-full text-base text-white font-medium hover:bg-white hover:text-black transition-all duration-300 w-full max-w-[200px] text-center touch-manipulation'
-            >
-              {t('nav.contact')}
-            </Link>
+          </nav>
 
-            {/* Mobile Language Switcher - Inline version */}
-            <div className='pt-4 border-t border-white/10 w-full flex justify-center mt-4'>
-              <LanguageSwitcher isMobile={true} />
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile menu backdrop */}
-        {menuOpen && (
-          <div
-            className='fixed inset-0 bg-black/20 z-40 md:hidden'
+          {/* Contact CTA */}
+          <Link
+            to={`/${currentLang}/contact`}
             onClick={() => setMenuOpen(false)}
-          />
-        )}
-      </nav>
+            className={`relative group mb-10 transition-all duration-500 ${
+              menuOpen
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-4'
+            }`}
+            style={{ transitionDelay: menuOpen ? '300ms' : '0ms' }}
+          >
+            <span className='inline-flex items-center gap-3 px-8 py-3 text-sm uppercase tracking-[0.2em] text-white border border-pp-sage/50 rounded-full hover:bg-pp-sage hover:text-black transition-all duration-500'>
+              {t('nav.contact')}
+              <svg className='w-4 h-4' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+              </svg>
+            </span>
+          </Link>
+
+          {/* Language Switcher */}
+          <div
+            className={`transition-all duration-500 ${
+              menuOpen
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-4'
+            }`}
+            style={{ transitionDelay: menuOpen ? '375ms' : '0ms' }}
+          >
+            <LanguageSwitcher isMobile={true} />
+          </div>
+
+          {/* Bottom decorative line */}
+          <div className='absolute bottom-20 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent' />
+        </div>
+      </div>
     </header>
   );
 };
