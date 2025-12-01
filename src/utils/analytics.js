@@ -47,14 +47,6 @@ export const trackContactFormSubmit = (formType, language) => {
   });
 };
 
-export const trackVideoPlay = (videoName, location) => {
-  trackEvent('video_play', {
-    video_name: videoName,
-    location: location,
-    event_category: 'video_engagement',
-  });
-};
-
 export const trackPortfolioView = (projectName, language) => {
   trackEvent('portfolio_view', {
     project_name: projectName,

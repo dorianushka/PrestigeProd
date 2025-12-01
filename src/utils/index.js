@@ -15,10 +15,7 @@ const reelsoroush = `${CLOUDFRONT_URL}/videos/reel_soroush.mp4`;
 // images
 const logo = `${CLOUDFRONT_URL}/images/logo.svg`;
 const pplogo = `${CLOUDFRONT_URL}/images/logo.png`;
-const apple = `${CLOUDFRONT_URL}/images/apple.svg`;
 const search = `${CLOUDFRONT_URL}/images/search.svg`;
-const bag = `${CLOUDFRONT_URL}/images/bag.svg`;
-const watch = `${CLOUDFRONT_URL}/images/watch.svg`;
 const right = `${CLOUDFRONT_URL}/images/right.svg`;
 const replay = `${CLOUDFRONT_URL}/images/replay.svg`;
 const play = `${CLOUDFRONT_URL}/images/play.svg`;
@@ -30,7 +27,6 @@ const white = `${CLOUDFRONT_URL}/images/white.jpg`;
 const black = `${CLOUDFRONT_URL}/images/black.jpg`;
 const explore1 = `${CLOUDFRONT_URL}/images/explore1.jpg`;
 const explore2 = `${CLOUDFRONT_URL}/images/explore2.jpg`;
-const chip = `${CLOUDFRONT_URL}/images/chip.jpeg`;
 const frame = `${CLOUDFRONT_URL}/images/frame.png`;
 
 const star = `${CLOUDFRONT_URL}/images/star.png`;
@@ -40,7 +36,6 @@ const exp3 = `${CLOUDFRONT_URL}/images/exp3.png`;
 const logo1 = `${CLOUDFRONT_URL}/images/logo1.png`;
 const logo2 = `${CLOUDFRONT_URL}/images/logo2.png`;
 const logo3 = `${CLOUDFRONT_URL}/images/logo3.png`;
-const iphoneframeimg = `${CLOUDFRONT_URL}/images/Apple iPhone 15 Frame PNG.jpeg`;
 const smilogo = `${CLOUDFRONT_URL}/logos/smi_logo.png`;
 // declare
 export const heroVideo = hmv;
@@ -56,10 +51,7 @@ export const reelSoroush = reelsoroush;
 
 export const logoImg = logo;
 export const ppLogo = pplogo;
-export const appleImg = apple;
 export const searchImg = search;
-export const bagImg = bag;
-export const watchImg = watch;
 export const rightImg = right;
 export const replayImg = replay;
 export const playImg = play;
@@ -71,7 +63,6 @@ export const whiteImg = white;
 export const blackImg = black;
 export const explore1Img = explore1;
 export const explore2Img = explore2;
-export const chipImg = chip;
 export const frameImg = frame;
 
 export const starImg = star;
@@ -81,7 +72,6 @@ export const exp3Img = exp3;
 export const logo1Img = logo1;
 export const logo2Img = logo2;
 export const logo3Img = logo3;
-export const iphoneFrameImg = iphoneframeimg;
 export const smiLogo = smilogo;
 
 /**
