@@ -180,22 +180,6 @@ export const expCards = [
 export const projects = [
   {
     id: 1,
-    title: 'Swiss Mining Institute',
-    video: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/SMI_logo_final.mp4`,
-    link: '/portfolio/smi',
-    category: 'events',
-    typeKey: 'portfolio.types.eventProduction'
-  },
-  {
-    id: 2,
-    title: 'Penthouse Zurich',
-    image: `${import.meta.env.VITE_CLOUDFRONT_URL}/images/thumbnail_penthouse.png`,
-    link: '/portfolio/penthouse-zurich',
-    category: 'realEstate',
-    typeKey: 'portfolio.types.realEstate'
-  },
-  {
-    id: 3,
     title: 'Swiss Mining Institute 2025',
     video: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/smi_2025_teaser_vertical.mp4`,
     link: '/portfolio/smi-2025',
@@ -203,5 +187,21 @@ export const projects = [
     typeKey: 'portfolio.types.eventProduction',
     isVertical: true,
     isFeatured: true,
+  },
+  {
+    id: 2,
+    title: 'Swiss Mining Institute 2024',
+    video: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/SMI_logo_final.mp4`,
+    link: '/portfolio/smi',
+    category: 'events',
+    typeKey: 'portfolio.types.eventProduction'
+  },
+  {
+    id: 3,
+    title: 'Penthouse Zurich',
+    image: `${import.meta.env.VITE_CLOUDFRONT_URL}/images/thumbnail_penthouse.png`,
+    link: '/portfolio/penthouse-zurich',
+    category: 'realEstate',
+    typeKey: 'portfolio.types.realEstate'
   },
 ];
