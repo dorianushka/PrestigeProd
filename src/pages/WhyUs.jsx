@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -6,10 +7,12 @@ import { useGSAP } from '@gsap/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { GRADIENT_CLASS } from '../constants';
 
-// Register ScrollTrigger and ScrollToPlugin plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+// Refined gold accent color
+const GOLD = '#C9A961';
+const GOLD_LIGHT = '#E8D5A3';
 
 // --- Icon Components ---
 const IconWrapper = ({ children, className }) => (
@@ -18,7 +21,7 @@ const IconWrapper = ({ children, className }) => (
     viewBox='0 0 24 24'
     fill='none'
     stroke='currentColor'
-    strokeWidth='1.5'
+    strokeWidth='1.2'
     strokeLinecap='round'
     strokeLinejoin='round'
     className={className}
@@ -59,6 +62,13 @@ const CheckIcon = ({ className }) => (
   </IconWrapper>
 );
 
+// Decorative diamond element
+const Diamond = ({ className = '' }) => (
+  <svg viewBox='0 0 20 20' className={className} fill='currentColor'>
+    <path d='M10 0L20 10L10 20L0 10L10 0Z' />
+  </svg>
+);
+
 const WhyUs = () => {
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
@@ -70,10 +80,8 @@ const WhyUs = () => {
   const ctaSectionRef = useRef(null);
   const [activeSkill, setActiveSkill] = useState(null);
   const [activeTab, setActiveTab] = useState('vision');
-
   const [activeSection, setActiveSection] = useState('team');
 
-  // Team member skills to showcase expertise
   const skills = {
     dorian: [
       t('whyUs.skills.dorian.0', 'Creative direction'),
@@ -87,36 +95,30 @@ const WhyUs = () => {
     ],
   };
 
-  // Helper function to get the appropriate approach point text
   const getApproachPointText = (tab, index) => {
     if (tab === 'vision') {
       if (index === 1) return 'Deep stakeholder interviews to understand needs';
       if (index === 2) return 'Market and audience research';
       if (index === 3) return 'Strategic alignment with your business goals';
     }
-
     if (tab === 'creativity') {
       if (index === 1) return 'Innovative concept development';
       if (index === 2) return 'Visual storytelling expertise';
       if (index === 3) return 'Brand-aligned aesthetic direction';
     }
-
     if (tab === 'execution') {
       if (index === 1) return 'Premium equipment and production values';
       if (index === 2) return 'Expert crew and technical excellence';
       if (index === 3) return 'Thorough quality control process';
     }
-
     if (tab === 'results') {
       if (index === 1) return 'Performance metrics tracking';
       if (index === 2) return 'Audience engagement analysis';
       if (index === 3) return 'Tangible business outcome reporting';
     }
-
     return '';
   };
 
-  // Helper function to get the appropriate approach description text
   const getApproachDescription = tab => {
     switch (tab) {
       case 'vision':
@@ -131,19 +133,15 @@ const WhyUs = () => {
     }
   };
 
-  // Approach tabs data
   const approachTabs = [
-    { id: 'vision', icon: VisionIcon },
-    { id: 'creativity', icon: CreativityIcon },
-    { id: 'execution', icon: ExecutionIcon },
-    { id: 'results', icon: ResultsIcon },
+    { id: 'vision', icon: VisionIcon, num: '01' },
+    { id: 'creativity', icon: CreativityIcon, num: '02' },
+    { id: 'execution', icon: ExecutionIcon, num: '03' },
+    { id: 'results', icon: ResultsIcon, num: '04' },
   ];
 
-  useEffect(() => {
-    document.title = t('whyUs.pageTitle', 'Why Us | Prestige Production');
-  }, [t]);
+  const canonicalUrl = `https://prestigeproduction.ch/${currentLang}/why-us`;
 
-  // Function to smoothly scroll to sections
   const scrollToSection = ref => {
     if (ref && ref.current) {
       gsap.to(window, {
@@ -153,17 +151,16 @@ const WhyUs = () => {
       });
     }
   };
+
   useGSAP(() => {
-    // Initial fade in animations
     gsap.from('.fade-in', {
       opacity: 0,
-      y: 20,
-      duration: 1,
-      stagger: 0.2,
-      ease: 'power2.out',
+      y: 30,
+      duration: 1.2,
+      stagger: 0.15,
+      ease: 'power3.out',
     });
 
-    // Team photo reveal animation
     gsap.fromTo(
       '.team-photo-reveal',
       { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' },
@@ -173,40 +170,23 @@ const WhyUs = () => {
           start: 'top 80%',
         },
         clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-        duration: 1.2,
-        ease: 'power3.out',
+        duration: 1.4,
+        ease: 'power4.out',
       },
     );
 
-    // Individual team members staggered entrance
     gsap.from('.team-individual', {
       scrollTrigger: {
         trigger: individualSectionRef.current,
         start: 'top 70%',
       },
-      y: 50,
+      y: 60,
       opacity: 0,
-      stagger: 0.3,
-      duration: 0.8,
-      ease: 'back.out(1.7)',
+      stagger: 0.25,
+      duration: 1,
+      ease: 'power3.out',
     });
 
-    // Approach section tab animations
-    /* gsap.from('.approach-tab', {
-      scrollTrigger: {
-        trigger: approachSectionRef.current,
-        start: 'top 75%',
-      },
-      opacity: 0,
-      x: -30,
-      stagger: 0.15,
-      duration: 0.6,
-      ease: 'power2.out',
-    }); */
-
-    // We removed testimonial cards GSAP animation to avoid conflicts with Framer Motion
-
-    // Set up ScrollTrigger for navigation dots
     const sections = [
       { ref: teamRef, name: 'team' },
       { ref: individualSectionRef, name: 'individuals' },
@@ -227,7 +207,6 @@ const WhyUs = () => {
     });
   }, []);
 
-  // Team member data
   const teamMembers = [
     {
       nameKey: 'duo',
@@ -252,109 +231,158 @@ const WhyUs = () => {
   const [duo, ...individuals] = teamMembers;
 
   return (
-    <section
-      ref={sectionRef}
-      className='relative w-full min-h-screen bg-gradient-to-b from-black via-gray-900/20 to-black text-white pt-20 overflow-hidden'
-    >
-      {/* Quick navigation menu */}
+    <>
+      <Helmet>
+        <title>{t('seo.whyUs.title', 'Why Choose Us | Prestige Production Zurich')}</title>
+        <meta name="description" content={t('seo.whyUs.description', 'Meet the team behind Prestige Production. Award-winning video production and photography team in Zurich, Switzerland. Creative excellence guaranteed.')} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={t('seo.whyUs.title', 'Why Choose Us | Prestige Production')} />
+        <meta property="og:description" content={t('seo.whyUs.description', 'Meet our expert video and photo team in Zurich.')} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={t('seo.whyUs.title', 'Why Choose Us | Prestige Production')} />
+        <meta name="twitter:description" content={t('seo.whyUs.description', 'Meet our expert team.')} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {"@type": "ListItem", "position": 1, "name": t('nav.home', 'Home'), "item": `https://prestigeproduction.ch/${currentLang}/`},
+              {"@type": "ListItem", "position": 2, "name": t('nav.whyUs', 'Why Us'), "item": canonicalUrl}
+            ]
+          })}
+        </script>
+      </Helmet>
+      <section
+        ref={sectionRef}
+        className='relative w-full min-h-screen text-white overflow-hidden'
+        style={{
+          background: 'linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 50%, #080808 100%)',
+        }}
+      >
+      {/* Subtle grain texture overlay */}
+      <div
+        className='fixed inset-0 pointer-events-none opacity-[0.03] z-50'
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {/* Refined navigation dots */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-        className='fixed left-6 top-1/2 transform -translate-y-1/2 z-50 hidden md:flex flex-col gap-6'
+        transition={{ delay: 1.5, duration: 0.6 }}
+        className='fixed left-8 top-1/2 transform -translate-y-1/2 z-40 hidden lg:flex flex-col items-center'
       >
-        <div className='flex flex-col items-center gap-1'>
-          <motion.button
-            onClick={() => scrollToSection(teamRef)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              activeSection === 'team'
-                ? 'bg-[#2d5f59] shadow-lg shadow-[#2d5f59]/50'
-                : 'bg-white/40 hover:bg-[#2d5f59]/80'
-            }`}
-            whileHover={{ scale: 1.5 }}
-            aria-label='Go to Team section'
-          />
-          <div className='h-10 w-px bg-white/20'></div>
-          <motion.button
-            onClick={() => scrollToSection(individualSectionRef)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              activeSection === 'individuals'
-                ? 'bg-[#2d5f59] shadow-lg shadow-[#2d5f59]/50'
-                : 'bg-white/40 hover:bg-[#2d5f59]/80'
-            }`}
-            whileHover={{ scale: 1.5 }}
-            aria-label='Go to Team Members section'
-          />
-          <div className='h-10 w-px bg-white/20'></div>
-          <motion.button
-            onClick={() => scrollToSection(approachSectionRef)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              activeSection === 'approach'
-                ? 'bg-[#2d5f59] shadow-lg shadow-[#2d5f59]/50'
-                : 'bg-white/40 hover:bg-[#2d5f59]/80'
-            }`}
-            whileHover={{ scale: 1.5 }}
-            aria-label='Go to Approach section'
-          />
-          <div className='h-10 w-px bg-white/20'></div>
-          <motion.button
-            onClick={() => scrollToSection(ctaSectionRef)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              activeSection === 'cta'
-                ? 'bg-[#2d5f59] shadow-lg shadow-[#2d5f59]/50'
-                : 'bg-white/40 hover:bg-[#2d5f59]/80'
-            }`}
-            whileHover={{ scale: 1.5 }}
-            aria-label='Go to CTA section'
-          />
-        </div>
+        {[
+          { ref: teamRef, name: 'team' },
+          { ref: individualSectionRef, name: 'individuals' },
+          { ref: approachSectionRef, name: 'approach' },
+          { ref: ctaSectionRef, name: 'cta' },
+        ].map((section, i) => (
+          <React.Fragment key={section.name}>
+            <motion.button
+              onClick={() => scrollToSection(section.ref)}
+              className='group relative p-2'
+              whileHover={{ scale: 1.2 }}
+              aria-label={`Go to ${section.name} section`}
+            >
+              <div
+                className={`w-2 h-2 transition-all duration-500 ${
+                  activeSection === section.name
+                    ? 'rotate-45 scale-125'
+                    : 'rotate-0'
+                }`}
+                style={{
+                  backgroundColor: activeSection === section.name ? GOLD : 'rgba(255,255,255,0.25)',
+                  boxShadow: activeSection === section.name ? `0 0 20px ${GOLD}40` : 'none',
+                }}
+              />
+            </motion.button>
+            {i < 3 && <div className='h-8 w-px bg-white/10' />}
+          </React.Fragment>
+        ))}
       </motion.div>
 
-      <div className='max-w-6xl mx-auto px-6 sm:px-10 relative z-10'>
-        {/* Headline with animated gradient */}
+      <div className='max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10 pt-24 pb-20'>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            HERO SECTION - Editorial Magazine Style
+        ═══════════════════════════════════════════════════════════════════ */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className='text-center'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+          className='text-center mb-32'
         >
-          {/* Title heading */}
-          <h1 className='text-5xl md:text-7xl font-light fade-in mb-8 text-center relative'>
+          {/* Decorative top element */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className='flex items-center justify-center gap-4 mb-12'
+          >
+            <div className='h-px w-16 bg-gradient-to-r from-transparent to-white/20' />
+            <Diamond className='w-2 h-2 text-white/30' />
+            <div className='h-px w-16 bg-gradient-to-l from-transparent to-white/20' />
+          </motion.div>
+
+          {/* Editorial label */}
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className='inline-block text-[10px] tracking-[0.35em] uppercase mb-8'
+            style={{ color: GOLD }}
+          >
+            Prestige Production
+          </motion.span>
+
+          {/* Main title - serif editorial */}
+          <h1 className='font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light fade-in mb-8 tracking-tight'>
             {t('whyUs.title', 'Why Work With Us?')}
-            <div className='absolute -bottom-4 left-1/2 transform -translate-x-1/2 h-0.5 w-32 bg-gradient-to-r from-transparent via-[#2d5f59] to-transparent'></div>
           </h1>
 
-          <p className='text-xl text-center text-white/70 fade-in mb-6 max-w-3xl mx-auto leading-relaxed'>
+          {/* Elegant underline */}
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: '120px' }}
+            transition={{ duration: 1.2, delay: 0.6, ease: 'easeOut' }}
+            className='h-px mx-auto mb-10'
+            style={{ background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }}
+          />
+
+          {/* Subtitle with refined typography */}
+          <p className='text-lg sm:text-xl text-white/60 fade-in max-w-2xl mx-auto leading-relaxed font-light'>
             {t(
               'whyUs.subtitle',
               "Prestige Production is more than just a video company, it's a partnership built on vision, creativity, and performance.",
             )}
           </p>
-
-          {/* Abstract decorative symbol */}
-          <motion.div
-            initial={{ scale: 0, rotate: -20 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ type: 'spring', stiffness: 100, delay: 0.5 }}
-            className='w-12 h-12 mx-auto mb-16'
-          >
-            <div className='relative w-full h-full'>
-              <div className='absolute inset-0 bg-gradient-to-r from-[#2d5f59] to-[#F4FF78] rounded-full opacity-20 animate-pulse'></div>
-              <div className='absolute inset-1 bg-black rounded-full flex items-center justify-center'>
-                <span className='text-white/70 text-xl'>✦</span>
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
 
-        {/* Duo Photo with enhanced presentation */}
-        <div ref={teamRef} key={duo.nameKey} className='mb-32'>
-          <div className='rounded-2xl mb-12 shadow-xl overflow-hidden max-w-4xl mx-auto relative'>
-            {/* Photo reveal animation container */}
-            <div className='team-photo-reveal'>
+        {/* ═══════════════════════════════════════════════════════════════════
+            TEAM DUO SECTION - Magazine Spread Layout
+        ═══════════════════════════════════════════════════════════════════ */}
+        <div ref={teamRef} key={duo.nameKey} className='mb-40'>
+          <div className='relative max-w-5xl mx-auto'>
+            {/* Frame decoration */}
+            <div className='absolute -inset-4 border border-white/5 pointer-events-none' />
+            <div
+              className='absolute -inset-4 border pointer-events-none'
+              style={{
+                borderColor: `${GOLD}10`,
+                transform: 'translate(8px, 8px)',
+              }}
+            />
+
+            {/* Main image container */}
+            <div className='team-photo-reveal relative overflow-hidden'>
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
                 className='relative'
               >
                 <img
@@ -363,230 +391,359 @@ const WhyUs = () => {
                   className='w-full h-auto object-cover'
                   loading='eager'
                 />
-                {/* Gradient overlay */}
-                <div className='absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-70'></div>
+                {/* Cinematic gradient overlay */}
+                <div
+                  className='absolute inset-0'
+                  style={{
+                    background: 'linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 40%, transparent 70%)',
+                  }}
+                />
+                {/* Side vignette */}
+                <div
+                  className='absolute inset-0'
+                  style={{
+                    background: 'linear-gradient(90deg, rgba(0,0,0,0.3) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.3) 100%)',
+                  }}
+                />
+              </motion.div>
+
+              {/* Caption overlay - editorial style */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 1 }}
+                className='absolute bottom-0 left-0 right-0 p-8 sm:p-12'
+              >
+                <div className='flex items-end justify-between'>
+                  <div>
+                    <span
+                      className='inline-block text-[10px] tracking-[0.3em] uppercase mb-4'
+                      style={{ color: GOLD }}
+                    >
+                      {t('whyUs.teamLabel', 'The Founders')}
+                    </span>
+                    <h2 className='font-serif text-4xl sm:text-5xl font-light text-white mb-2'>
+                      {t(`whyUs.team.${duo.nameKey}.name`, 'Dorian & Alex')}
+                    </h2>
+                    <p className='text-white/50 text-sm tracking-wide'>
+                      {t(
+                        `whyUs.team.${duo.nameKey}.role`,
+                        'Founders of Prestige Production',
+                      )}
+                    </p>
+                  </div>
+                  {/* Decorative element */}
+                  <div className='hidden sm:block'>
+                    <Diamond className='w-3 h-3' style={{ color: GOLD }} />
+                  </div>
+                </div>
               </motion.div>
             </div>
-
-            {/* Caption overlay */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className='absolute bottom-0 left-0 right-0 p-8 text-left'
-            >
-              <span className='px-3 py-1 text-xs rounded-full bg-white/20 backdrop-blur-sm text-white/90 mb-4 inline-block'>
-                {t('whyUs.teamLabel', 'Our team')}
-              </span>
-              <h2 className='text-3xl sm:text-4xl font-medium mb-1 text-white'>
-                {t(`whyUs.team.${duo.nameKey}.name`, 'Dorian & Alex')}
-              </h2>
-              <p className='text-white/80 text-sm mb-2 font-light'>
-                {t(
-                  `whyUs.team.${duo.nameKey}.role`,
-                  'Founders of Prestige Production',
-                )}
-              </p>
-            </motion.div>
           </div>
 
-          {/* Team story */}
-          <div className='text-white/80 text-md space-y-5 max-w-3xl mx-auto px-4'>
-            {duo.descriptionKeys.map((key, idx) => (
-              <motion.p
-                key={idx}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * idx, duration: 0.6 }}
+          {/* Team story - editorial column layout */}
+          <div className='mt-16 max-w-3xl mx-auto'>
+            <div className='grid md:grid-cols-[1fr_2px_1fr] gap-8 md:gap-12'>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className={idx === 0 ? 'text-lg' : ''}
               >
-                {t(
-                  `whyUs.team.${duo.nameKey}.description.${key}`,
-                  "We're Alex and Dorian, co-founders of Prestige Production—a creative studio built on a shared passion for visual storytelling.",
-                )}
-              </motion.p>
-            ))}
+                <p className='text-white/70 leading-relaxed font-light'>
+                  {t(
+                    `whyUs.team.${duo.nameKey}.description.duoDesc1`,
+                    "We're Alex and Dorian, co-founders of Prestige Production—a creative studio built on a shared passion for visual storytelling.",
+                  )}
+                </p>
+              </motion.div>
+
+              {/* Vertical divider */}
+              <div
+                className='hidden md:block self-stretch'
+                style={{ background: `linear-gradient(180deg, transparent, ${GOLD}30, transparent)` }}
+              />
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className='space-y-6'
+              >
+                {duo.descriptionKeys.slice(1).map((key, idx) => (
+                  <p key={idx} className='text-white/60 text-sm leading-relaxed'>
+                    {t(
+                      `whyUs.team.${duo.nameKey}.description.${key}`,
+                      'Description paragraph',
+                    )}
+                  </p>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
 
-        {/* Meet The Team Heading */}
+        {/* ═══════════════════════════════════════════════════════════════════
+            MEET THE TEAM HEADING
+        ═══════════════════════════════════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className='text-center mb-16'
+          className='text-center mb-20'
         >
-          <h2 className='text-3xl md:text-5xl font-light mb-4'>
-            <span>{t('whyUs.meetThe', 'Meet The ')} </span>
-            <span className={`${GRADIENT_CLASS} bg-clip-text text-transparent`}>
-              {t('whyUs.creativeMinus', 'Creative Minds')}
-            </span>
+          <span
+            className='inline-block text-[10px] tracking-[0.3em] uppercase mb-6'
+            style={{ color: GOLD }}
+          >
+            {t('whyUs.meetThe', 'Meet The')}
+          </span>
+          <h2 className='font-serif text-4xl md:text-5xl lg:text-6xl font-light'>
+            {t('whyUs.creativeMinus', 'Creative Minds')}
           </h2>
-          <div className='w-24 h-0.5 mx-auto bg-gradient-to-r from-transparent via-[#2d5f59]/50 to-transparent'></div>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: '80px' }}
+            transition={{ duration: 1, delay: 0.3 }}
+            viewport={{ once: true }}
+            className='h-px mx-auto mt-8'
+            style={{ background: `linear-gradient(90deg, transparent, ${GOLD}50, transparent)` }}
+          />
         </motion.div>
 
-        {/* Individuals with enhanced presentation */}
+        {/* ═══════════════════════════════════════════════════════════════════
+            INDIVIDUAL TEAM MEMBERS - Asymmetric Editorial Layout
+        ═══════════════════════════════════════════════════════════════════ */}
         <div
           ref={individualSectionRef}
-          className='grid md:grid-cols-2 gap-x-16 gap-y-20 items-start mb-32'
+          className='mb-40 space-y-32'
         >
           {individuals.map((member, idx) => (
-            <div key={member.nameKey} className='team-individual'>
-              <div className='flex flex-col md:flex-row gap-8 items-center md:items-start'>
-                {/* Photo with hover effect */}
-                <motion.div
-                  whileHover={{
-                    y: -5,
-                    boxShadow: '0 25px 50px -12px rgba(45, 95, 89, 0.25)',
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className={`w-3/4 sm:w-1/2 md:w-2/5 mx-auto md:mx-0 aspect-[3/4] rounded-xl overflow-hidden shadow-lg ${
-                    member.nameKey === 'dorian'
-                      ? 'bg-gradient-to-br from-[#2d5f59]/40 to-black/20'
-                      : 'bg-gradient-to-br from-[#2d5f59]/40 to-black/20'
-                  }`}
-                >
+            <div
+              key={member.nameKey}
+              className={`team-individual flex flex-col ${
+                idx % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+              } gap-12 lg:gap-20 items-center`}
+            >
+              {/* Photo with artistic frame */}
+              <motion.div
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.5 }}
+                className='w-full lg:w-2/5 relative group'
+              >
+                {/* Frame decorations */}
+                <div
+                  className='absolute -inset-3 border opacity-0 group-hover:opacity-100 transition-opacity duration-700'
+                  style={{ borderColor: `${GOLD}20` }}
+                />
+                <div className='absolute -inset-3 border border-white/5 translate-x-2 translate-y-2' />
+
+                <div className='aspect-[3/4] overflow-hidden relative'>
                   <img
                     src={member.image}
                     alt={t(`whyUs.team.${member.nameKey}.name`, member.nameKey)}
-                    className='w-full h-full object-cover hover:scale-105 transition duration-700'
+                    className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
                   />
-                </motion.div>
+                  {/* Hover overlay */}
+                  <div
+                    className='absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500'
+                    style={{
+                      background: `linear-gradient(45deg, ${GOLD}10, transparent)`,
+                    }}
+                  />
+                </div>
 
-                {/* Content with enhanced presentation */}
-                <div className='w-full md:w-3/5 text-center md:text-left'>
-                  <h3 className='text-2xl font-medium mb-2'>
+                {/* Corner accent */}
+                <div
+                  className='absolute -bottom-2 -right-2 w-8 h-8 border-r border-b'
+                  style={{ borderColor: GOLD }}
+                />
+              </motion.div>
+
+              {/* Content */}
+              <div className='w-full lg:w-3/5 text-center lg:text-left'>
+                {/* Name and role */}
+                <div className='mb-8'>
+                  <h3 className='font-serif text-3xl sm:text-4xl font-light mb-3'>
                     {t(`whyUs.team.${member.nameKey}.name`, member.nameKey)}
                   </h3>
-                  <p
-                    className={`inline-block px-3 py-1 rounded-full text-white text-xs mb-5 ${
-                      member.nameKey === 'dorian' || member.nameKey === 'alex'
-                        ? 'bg-[#2d5f59]/40'
-                        : 'bg-[#2d5f59]/40'
-                    }`}
+                  <span
+                    className='inline-block text-xs tracking-[0.2em] uppercase px-4 py-2'
+                    style={{
+                      color: GOLD,
+                      border: `1px solid ${GOLD}30`,
+                    }}
                   >
                     {t(`whyUs.team.${member.nameKey}.role`, 'Role')}
-                  </p>
+                  </span>
+                </div>
 
-                  {/* Expertise areas with interactive pills */}
-                  <div className='flex flex-wrap justify-center md:justify-start gap-2 mb-5'>
-                    {skills[member.nameKey]?.map((skill, i) => (
-                      <motion.span
-                        key={i}
-                        whileHover={{ scale: 1.05 }}
-                        onClick={() =>
-                          setActiveSkill(
-                            activeSkill === `${member.nameKey}-${i}`
-                              ? null
-                              : `${member.nameKey}-${i}`,
-                          )
-                        }
-                        className={`cursor-pointer text-xs px-3 py-1 rounded-full transition-colors duration-300 ${
+                {/* Skills */}
+                <div className='flex flex-wrap justify-center lg:justify-start gap-3 mb-8'>
+                  {skills[member.nameKey]?.map((skill, i) => (
+                    <motion.span
+                      key={i}
+                      whileHover={{ scale: 1.05, backgroundColor: 'rgba(201, 169, 97, 0.15)' }}
+                      onClick={() =>
+                        setActiveSkill(
                           activeSkill === `${member.nameKey}-${i}`
-                            ? 'bg-[#2d5f59] text-white'
-                            : 'bg-white/10 text-white/70 hover:bg-white/20'
-                        }`}
-                      >
-                        {skill}
-                      </motion.span>
-                    ))}
-                  </div>
+                            ? null
+                            : `${member.nameKey}-${i}`,
+                        )
+                      }
+                      className='cursor-pointer text-xs px-4 py-2 transition-all duration-300 border border-white/10 text-white/60 hover:text-white/90'
+                      style={{
+                        backgroundColor: activeSkill === `${member.nameKey}-${i}`
+                          ? `${GOLD}20`
+                          : 'transparent',
+                        borderColor: activeSkill === `${member.nameKey}-${i}`
+                          ? `${GOLD}40`
+                          : 'rgba(255,255,255,0.1)',
+                      }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
 
-                  {/* Description with enhanced typography */}
-                  <div className='text-white/70 space-y-4'>
-                    {member.descriptionKeys.map((key, i) => (
-                      <motion.p
-                        key={i}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: 0.2 * i, duration: 0.5 }}
-                        viewport={{ once: true }}
-                        className='text-sm leading-relaxed text-center md:text-left'
-                      >
-                        {t(
-                          `whyUs.team.${member.nameKey}.description.${key}`,
-                          'Description paragraph',
-                        )}
-                      </motion.p>
-                    ))}
-                  </div>
+                {/* Description */}
+                <div className='space-y-4'>
+                  {member.descriptionKeys.map((key, i) => (
+                    <motion.p
+                      key={i}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 0.15 * i, duration: 0.6 }}
+                      viewport={{ once: true }}
+                      className='text-white/60 text-sm leading-relaxed'
+                    >
+                      {t(
+                        `whyUs.team.${member.nameKey}.description.${key}`,
+                        'Description paragraph',
+                      )}
+                    </motion.p>
+                  ))}
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Our Approach Section */}
-        <div ref={approachSectionRef} className='mb-32'>
+        {/* ═══════════════════════════════════════════════════════════════════
+            OUR APPROACH SECTION - Refined Tab Interface
+        ═══════════════════════════════════════════════════════════════════ */}
+        <div ref={approachSectionRef} className='mb-40'>
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className='text-center mb-6 md:mb-10'
+            className='text-center mb-16'
           >
-            <h2 className='text-3xl md:text-5xl font-light mb-4'>
-              <span>{t('whyUs.approach.title', 'Our ')} </span>
-              <span
-                className={`${GRADIENT_CLASS} bg-clip-text text-transparent`}
-              >
-                {t('whyUs.approach.highlight', 'Approach')}
-              </span>
+            <span
+              className='inline-block text-[10px] tracking-[0.3em] uppercase mb-6'
+              style={{ color: GOLD }}
+            >
+              {t('whyUs.approach.title', 'Our Process')}
+            </span>
+            <h2 className='font-serif text-4xl md:text-5xl lg:text-6xl font-light'>
+              {t('whyUs.approach.highlight', 'The Approach')}
             </h2>
-            <div className='w-24 h-0.5 mx-auto bg-gradient-to-r from-transparent via-[#2d5f59]/50 to-transparent'></div>
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: '80px' }}
+              transition={{ duration: 1, delay: 0.3 }}
+              viewport={{ once: true }}
+              className='h-px mx-auto mt-8'
+              style={{ background: `linear-gradient(90deg, transparent, ${GOLD}50, transparent)` }}
+            />
           </motion.div>
 
-          <div className='bg-gradient-to-b from-pp-charcoal/20 to-black/10 rounded-2xl p-4 md:p-8 shadow-xl backdrop-blur-sm border border-pp-grey/10'>
-            {/* Approach Tabs */}
-            <div className='flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12'>
+          {/* Approach container with border */}
+          <div
+            className='relative p-8 md:p-12 lg:p-16'
+            style={{
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
+              border: '1px solid rgba(255,255,255,0.05)',
+            }}
+          >
+            {/* Corner accents */}
+            <div className='absolute top-0 left-0 w-12 h-12 border-t border-l' style={{ borderColor: `${GOLD}30` }} />
+            <div className='absolute top-0 right-0 w-12 h-12 border-t border-r' style={{ borderColor: `${GOLD}30` }} />
+            <div className='absolute bottom-0 left-0 w-12 h-12 border-b border-l' style={{ borderColor: `${GOLD}30` }} />
+            <div className='absolute bottom-0 right-0 w-12 h-12 border-b border-r' style={{ borderColor: `${GOLD}30` }} />
+
+            {/* Tabs - horizontal numbers */}
+            <div className='flex justify-center gap-2 sm:gap-4 mb-12'>
               {approachTabs.map(tab => {
                 const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
                 return (
                   <motion.button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`approach-tab flex items-center gap-3 px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium ${
-                      activeTab === tab.id
-                        ? 'bg-pp-teal text-white shadow-lg shadow-pp-teal/20'
-                        : 'bg-pp-charcoal/60 text-pp-ice/80 border border-pp-grey/20 hover:bg-pp-grey/10'
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className='relative px-4 sm:px-6 py-3 transition-all duration-500 group'
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
-                    <Icon className='w-4 h-4' />
-                    <span className=''>
-                      {t(
-                        `whyUs.approach.${tab.id}.tab`,
-                        tab.id.charAt(0).toUpperCase() + tab.id.slice(1),
-                      )}
-                    </span>
+                    {/* Background */}
+                    <div
+                      className='absolute inset-0 transition-all duration-500'
+                      style={{
+                        background: isActive
+                          ? `linear-gradient(180deg, ${GOLD}15 0%, transparent 100%)`
+                          : 'transparent',
+                        borderTop: isActive ? `2px solid ${GOLD}` : '2px solid transparent',
+                      }}
+                    />
+
+                    <div className='relative flex items-center gap-2 sm:gap-3'>
+                      <span
+                        className='text-xs font-light'
+                        style={{ color: isActive ? GOLD : 'rgba(255,255,255,0.3)' }}
+                      >
+                        {tab.num}
+                      </span>
+                      <Icon
+                        className='w-4 h-4 hidden sm:block'
+                        style={{ color: isActive ? GOLD : 'rgba(255,255,255,0.4)' }}
+                      />
+                      <span
+                        className='text-sm tracking-wide capitalize transition-colors duration-300'
+                        style={{ color: isActive ? 'white' : 'rgba(255,255,255,0.5)' }}
+                      >
+                        {t(
+                          `whyUs.approach.${tab.id}.tab`,
+                          tab.id.charAt(0).toUpperCase() + tab.id.slice(1),
+                        )}
+                      </span>
+                    </div>
                   </motion.button>
                 );
               })}
             </div>
 
-            {/* Tab Content with illustrations */}
-            <div className='grid md:grid-cols-5 gap-8 md:gap-12 items-center'>
-              <div className='md:col-span-3 order-2 md:order-1'>
+            {/* Tab Content */}
+            <div className='grid lg:grid-cols-2 gap-12 lg:gap-20 items-center'>
+              {/* Text content */}
+              <div className='order-2 lg:order-1'>
                 <AnimatePresence mode='wait'>
                   <motion.div
                     key={activeTab}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
                   >
-                    <h3 className='text-2xl md:text-3xl mb-4 font-light'>
+                    <h3 className='font-serif text-2xl sm:text-3xl font-light mb-6'>
                       {t(
                         `whyUs.approach.${activeTab}.title`,
-                        `Our ${
-                          activeTab.charAt(0).toUpperCase() + activeTab.slice(1)
-                        }`,
+                        `Our ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
                       )}
                     </h3>
-                    <p className='text-white/70 text-md mb-6 leading-relaxed'>
+                    <p className='text-white/60 leading-relaxed mb-8'>
                       {t(
                         `whyUs.approach.${activeTab}.description`,
                         getApproachDescription(activeTab),
@@ -596,17 +753,18 @@ const WhyUs = () => {
                       {[1, 2, 3].map(i => (
                         <motion.li
                           key={i}
-                          className='flex items-center gap-4'
+                          className='flex items-start gap-4'
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: i * 0.1 }}
                         >
                           <div
-                            className={`flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-pp-teal/20 text-pp-teal`}
+                            className='flex-shrink-0 w-5 h-5 flex items-center justify-center mt-0.5'
+                            style={{ color: GOLD }}
                           >
-                            <CheckIcon className='w-3 h-3' />
+                            <CheckIcon className='w-4 h-4' />
                           </div>
-                          <span className='text-white/80'>
+                          <span className='text-white/70 text-sm'>
                             {t(
                               `whyUs.approach.${activeTab}.point${i}`,
                               getApproachPointText(activeTab, i),
@@ -619,101 +777,155 @@ const WhyUs = () => {
                 </AnimatePresence>
               </div>
 
-              <div className='md:col-span-2 order-1 md:order-2 relative'>
+              {/* Visual element */}
+              <div className='order-1 lg:order-2'>
                 <motion.div
                   key={activeTab}
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5 }}
-                  className='relative'
+                  className='relative aspect-square max-w-md mx-auto'
                 >
-                  <div className='aspect-square w-full rounded-2xl flex items-center justify-center bg-gradient-to-b from-pp-charcoal/20 to-black/10 border border-pp-grey/10'>
+                  {/* Decorative circles */}
+                  <div
+                    className='absolute inset-0 rounded-full border opacity-20'
+                    style={{ borderColor: GOLD }}
+                  />
+                  <div
+                    className='absolute inset-8 rounded-full border opacity-10'
+                    style={{ borderColor: GOLD }}
+                  />
+                  <div
+                    className='absolute inset-16 rounded-full border opacity-5'
+                    style={{ borderColor: GOLD }}
+                  />
+
+                  {/* Center icon */}
+                  <div className='absolute inset-0 flex items-center justify-center'>
                     <motion.div
                       key={activeTab}
-                      initial={{ scale: 0.5, opacity: 0, rotate: -30 }}
-                      animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                      transition={{ duration: 0.4, ease: 'easeOut' }}
-                      className='w-3/5 h-3/5 text-pp-teal/50'
+                      initial={{ scale: 0, rotate: -30 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.5, ease: 'easeOut' }}
+                      className='w-24 h-24'
+                      style={{ color: `${GOLD}60` }}
                     >
                       {React.createElement(
                         approachTabs.find(t => t.id === activeTab)?.icon,
                       )}
                     </motion.div>
                   </div>
+
+                  {/* Animated rotating element */}
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+                    className='absolute inset-0'
+                  >
+                    <Diamond
+                      className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2'
+                      style={{ color: GOLD }}
+                    />
+                  </motion.div>
                 </motion.div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Enhanced CTA Section */}
+        {/* ═══════════════════════════════════════════════════════════════════
+            CTA SECTION - Premium Editorial Style
+        ═══════════════════════════════════════════════════════════════════ */}
         <motion.div
           ref={ctaSectionRef}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className='py-20 px-6 rounded-3xl relative overflow-hidden mt-16 mb-10 text-center bg-black/30 border border-[#2d5f59]/20 shadow-xl'
+          className='relative py-24 px-8 text-center'
         >
-          {/* Background elements */}
-          <div className='absolute inset-0 bg-gradient-to-b from-[#2d5f59]/10 to-black/20 z-0'></div>
+          {/* Background gradient */}
+          <div
+            className='absolute inset-0'
+            style={{
+              background: `radial-gradient(ellipse at center, ${GOLD}08 0%, transparent 70%)`,
+            }}
+          />
 
-          {/* Content wrapper */}
+          {/* Border frame */}
+          <div className='absolute inset-0 border border-white/5' />
+          <div className='absolute top-4 left-4 right-4 bottom-4 border' style={{ borderColor: `${GOLD}10` }} />
+
           <div className='relative z-10'>
-            <motion.span
-              initial={{ opacity: 0, y: -20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+            {/* Decorative element */}
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className='inline-block px-6 py-2 rounded-full bg-pp-teal/20 text-pp-ice/90 text-sm font-medium mb-8 border border-pp-teal/30'
+              className='flex items-center justify-center gap-4 mb-10'
+            >
+              <div className='h-px w-12' style={{ background: `linear-gradient(90deg, transparent, ${GOLD}40)` }} />
+              <Diamond className='w-2 h-2' style={{ color: GOLD }} />
+              <div className='h-px w-12' style={{ background: `linear-gradient(270deg, transparent, ${GOLD}40)` }} />
+            </motion.div>
+
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className='inline-block text-[10px] tracking-[0.35em] uppercase mb-8'
+              style={{ color: GOLD }}
             >
               {t('whyUs.ctaSection.label', 'Take the next step')}
             </motion.span>
 
-            <h2 className='text-3xl md:text-5xl font-light mb-6'>
+            <h2 className='font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-6'>
               {t('whyUs.ctaSection.title', 'Ready to create something')}{' '}
-              <span
-                className={`${GRADIENT_CLASS} bg-clip-text text-transparent`}
-              >
+              <span style={{ color: GOLD }}>
                 {t('whyUs.ctaSection.highlight', 'exceptional?')}
               </span>
             </h2>
 
-            <p className='text-white/70 text-lg max-w-2xl mx-auto mb-10'>
+            <p className='text-white/50 text-lg max-w-2xl mx-auto mb-12 font-light'>
               {t(
                 'whyUs.ctaSection.description',
                 'Let our creative team transform your vision into impactful visual content that resonates with your audience.',
               )}
             </p>
 
-            <div className='flex flex-col sm:flex-row gap-5 justify-center'>
+            {/* CTA Buttons */}
+            <div className='flex flex-col sm:flex-row gap-6 justify-center'>
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='relative'
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <Link
                   to={`/${currentLang}/contact`}
-                  className={`${GRADIENT_CLASS} text-white text-xl font-medium px-10 py-4 rounded-full hover:shadow-lg hover:shadow-[#2d5f59]/30 transition-all inline-flex items-center gap-3`}
+                  className='inline-flex items-center gap-3 px-10 py-4 text-black font-medium tracking-wide transition-all duration-300'
+                  style={{
+                    background: `linear-gradient(135deg, ${GOLD_LIGHT} 0%, ${GOLD} 100%)`,
+                  }}
                 >
                   <span>{t('whyUs.cta', "Let's work together")}</span>
-                  <span className='text-xl'>→</span>
+                  <span className='text-lg'>→</span>
                 </Link>
               </motion.div>
 
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className='relative'
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <Link
                   to={`/${currentLang}/portfolio`}
-                  className='bg-black/30 backdrop-blur-sm text-white border border-white/10 text-xl font-medium px-10 py-4 rounded-full hover:bg-black/40 transition-all inline-flex items-center gap-3'
+                  className='inline-flex items-center gap-3 px-10 py-4 font-light tracking-wide border transition-all duration-300 text-white/80 hover:text-white'
+                  style={{ borderColor: `${GOLD}40` }}
                 >
                   <span>
                     {t('whyUs.ctaSection.portfolioCta', 'View Our Work')}
                   </span>
-                  <span className='text-xl'>→</span>
+                  <span className='text-lg'>→</span>
                 </Link>
               </motion.div>
             </div>
@@ -722,31 +934,20 @@ const WhyUs = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
               viewport={{ once: true }}
-              className='flex flex-wrap justify-center gap-x-10 gap-y-4 mt-16 text-white/70 text-sm'
+              className='flex flex-wrap justify-center gap-x-12 gap-y-4 mt-16 text-white/40 text-xs tracking-wide'
             >
-              <div className='flex items-center gap-3'>
-                <span className='text-pp-teal'>✓</span>{' '}
-                {t(
-                  'whyUs.ctaSection.trustIndicators.quality',
-                  'Premium quality',
-                )}
-              </div>
-              <div className='flex items-center gap-3'>
-                <span className='text-pp-teal'>✓</span>{' '}
-                {t(
-                  'whyUs.ctaSection.trustIndicators.timelines',
-                  'Reliable timelines',
-                )}
-              </div>
-              <div className='flex items-center gap-3'>
-                <span className='text-pp-teal'>✓</span>{' '}
-                {t(
-                  'whyUs.ctaSection.trustIndicators.satisfaction',
-                  'Satisfaction guaranteed',
-                )}
-              </div>
+              {[
+                t('whyUs.ctaSection.trustIndicators.quality', 'Premium quality'),
+                t('whyUs.ctaSection.trustIndicators.timelines', 'Reliable timelines'),
+                t('whyUs.ctaSection.trustIndicators.satisfaction', 'Satisfaction guaranteed'),
+              ].map((text, i) => (
+                <div key={i} className='flex items-center gap-2'>
+                  <Diamond className='w-1.5 h-1.5' style={{ color: GOLD }} />
+                  <span>{text}</span>
+                </div>
+              ))}
             </motion.div>
           </div>
         </motion.div>
@@ -761,16 +962,31 @@ const WhyUs = () => {
             ease: 'power2.inOut',
           });
         }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
-        className='fixed bottom-8 right-8 bg-white/10 hover:bg-white/20 backdrop-blur-sm w-12 h-12 rounded-full flex items-center justify-center text-white border border-white/10 shadow-lg z-50 transition-all duration-300 hover:shadow-xl'
-        whileHover={{ y: -5, boxShadow: '0 15px 30px rgba(0,0,0,0.2)' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className='fixed bottom-8 right-8 w-12 h-12 flex items-center justify-center z-40 transition-all duration-300 group'
+        style={{
+          border: `1px solid ${GOLD}30`,
+          background: 'rgba(0,0,0,0.5)',
+          backdropFilter: 'blur(8px)',
+        }}
+        whileHover={{
+          y: -4,
+          borderColor: GOLD,
+          boxShadow: `0 8px 24px ${GOLD}20`,
+        }}
         whileTap={{ scale: 0.95 }}
       >
-        <span className='transform -rotate-90'>→</span>
+        <span
+          className='transform -rotate-90 text-sm transition-colors duration-300'
+          style={{ color: GOLD }}
+        >
+          →
+        </span>
       </motion.button>
-    </section>
+      </section>
+    </>
   );
 };
 

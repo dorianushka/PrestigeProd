@@ -331,6 +331,9 @@
     "ourText": "Notre",
     "portfolioText": "portfolio",
     "description": "De l'immobilier de luxe aux événements haut de gamme, nous créons des expériences cinématographiques qui élèvent chaque projet.",
+    "newProject": "Nouveau",
+    "new": "Nouveau",
+    "featuredDesc": "Novembre 2025 • Dîner de Gala & Afterparty",
     "categories": {
       "all": "Tous",
       "realEstate": "Immobilier",
@@ -350,15 +353,21 @@
       "mining": "Mines",
       "speakers": "Intervenants",
       "industry": "Industrie",
-      "highlights": "Points forts"
+      "highlights": "Points forts",
+      "gala": "Gala"
     },
             "reelsTitle": "Reels pour réseaux sociaux",
     "reelsSubtitle": "Contenu court et engageant conçu pour un impact maximum sur les réseaux sociaux",
     "reels": {
       "instagramReel": "Reel Instagram",
+      "eventTeaser": "Teaser Événement",
       "smi": {
         "title": "Événement SMI",
         "description": "Couverture événementielle dynamique pour les réseaux sociaux"
+      },
+      "smi2025": {
+        "title": "SMI 2025 Gala",
+        "description": "Couverture exclusive du dîner de gala et de l'afterparty"
       },
       "penthouseSpeech": {
         "title": "Expérience penthouse",
@@ -692,6 +701,36 @@
         }
       },
       "mainVideoViews": "15K+"
+    },
+    "smi2025": {
+      "pageTitle": "Swiss Mining Institute 2025 | Prestige Production",
+      "seoTitle": "Swiss Mining Institute 2025 - Dîner de Gala & Afterparty | Prestige Production",
+      "seoDescription": "Couverture exclusive du dîner de gala et de l'afterparty du Swiss Mining Institute 2025. Plus de 100 entreprises et 1000 investisseurs à la conférence minière la plus prestigieuse d'Europe.",
+      "label": "Novembre 2025",
+      "tagline": "Dîner de Gala & Afterparty",
+      "teaserBadge": "Teaser",
+      "tapToPlay": "Appuyez pour lire",
+      "companies": "Entreprises",
+      "investors": "Investisseurs",
+      "days": "Jours",
+      "watchTeaser": "Voir le Teaser Complet",
+      "eventDate": "Date de l'événement",
+      "filmingDate": "Date de tournage",
+      "location": "Lieu",
+      "description1": "Le Swiss Mining Institute est revenu pour son édition 2025, rassemblant",
+      "description1Highlight": "l'élite de l'industrie minière européenne",
+      "description2": "Nous avons capturé l'essence du dîner de gala et de l'afterparty exclusive, où les accords se concluent et les connexions se forgent autour du champagne et des conversations.",
+      "clickToExpand": "Cliquez pour agrandir",
+      "comingSoonLabel": "Restez connectés",
+      "comingSoonTitle": "Plus à venir",
+      "comingSoonDesc": "Aftermovie complet, galerie photo et plus de contenu à venir.",
+      "comingAftermovie": "Aftermovie",
+      "comingAftermovieDesc": "Couverture cinématographique complète",
+      "comingGallery": "Galerie Photo",
+      "comingGalleryDesc": "Photographie de l'événement",
+      "comingReels": "Reels Social",
+      "comingReelsDesc": "Contenu court",
+      "comingSoonBadge": "Bientôt disponible"
     }
   },
   "highlights": {
@@ -812,6 +851,61 @@
     "title": "Partenaires dont nous sommes",
     "proud": "fiers",
     "of": "",
-    "partnerAlt": "Partenaire"
+    "partnerAlt": "Partenaire",
+    "overline": "Collaborations",
+    "titlePart1": "Partenaires dont nous sommes",
+    "titlePart2": "fiers",
+    "moreComingSoon": "Nouvelles collaborations en préparation",
+    "viewTestimonial": "Voir le témoignage de",
+    "testimonials": {
+      "smi": {
+        "quote": "Prestige Production a capturé l'essence de notre conférence avec une cinématographie exceptionnelle. Leur attention aux détails et leur professionnalisme en ont fait des partenaires inestimables pour SMI.",
+        "role": "Organisateur"
+      },
+      "sothebys": {
+        "quote": "Travailler avec Prestige Production a élevé nos présentations immobilières à un tout autre niveau. Leur approche cinématographique met parfaitement en valeur l'immobilier de luxe.",
+        "role": "Agent immobilier"
+      }
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Prestige Production | Production Vidéo & Photographie Zurich, Suisse",
+      "description": "Agence premium de production vidéo et photographie à Zurich, Suisse. Vidéos immobilières de luxe, vidéos corporate, photographie drone et création de contenu de marque."
+    },
+    "portfolio": {
+      "title": "Portfolio | Projets Vidéo & Photo - Prestige Production",
+      "description": "Découvrez notre portfolio de projets de production vidéo et photographie premium à Zurich, Suisse. Immobilier de luxe, événements corporate, contenu de marque et plus."
+    },
+    "services": {
+      "title": "Services | Production Vidéo & Photographie Zurich",
+      "description": "Production vidéo professionnelle, photographie et services de drone à Zurich, Suisse. Vidéos immobilières, vidéos corporate, couverture événementielle et contenu de marque."
+    },
+    "contact": {
+      "title": "Contactez-nous | Prestige Production Zurich",
+      "description": "Contactez Prestige Production pour des services de production vidéo et photographie à Zurich, Suisse. Réservez une consultation gratuite aujourd'hui."
+    },
+    "whyUs": {
+      "title": "Pourquoi nous | Prestige Production Zurich",
+      "description": "Rencontrez l'équipe de Prestige Production. Vidéastes et photographes experts à Zurich, Suisse. Excellence créative et qualité premium garanties."
+    },
+    "privacy": {
+      "title": "Politique de Confidentialité | Prestige Production",
+      "description": "Politique de confidentialité de Prestige Production. Découvrez comment nous gérons vos données et protégeons votre vie privée."
+    }
+  },
+  "services": {
+    "faq": {
+      "q1": "Combien coûte la production vidéo à Zurich?",
+      "a1": "Nos forfaits de production vidéo sont personnalisés selon vos besoins spécifiques, la portée du projet et les livrables. Contactez-nous pour un devis personnalisé.",
+      "q2": "Combien de temps dure un projet typique?",
+      "a2": "Les délais de projet varient selon la complexité. La plupart des projets sont terminés dans les 2-4 semaines de la consultation initiale à la livraison finale.",
+      "q3": "Proposez-vous la photographie et la vidéographie par drone?",
+      "a3": "Oui, nous proposons des services professionnels de photographie et vidéographie par drone pour l'immobilier, les événements et les projets commerciaux dans toute la Suisse.",
+      "q4": "Quelles régions desservez-vous?",
+      "a4": "Nous desservons toute la Suisse, avec un focus principal sur Zurich, Genève, Bâle, Lausanne, Berne et les environs.",
+      "q5": "Puis-je voir des exemples de votre travail?",
+      "a5": "Absolument! Visitez notre page portfolio pour voir des exemples de nos projets de production vidéo et photographie dans diverses industries."
+    }
   }
 }

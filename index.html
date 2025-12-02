@@ -24,7 +24,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="revisit-after" content="1 day" />
     <meta name="geo.region" content="CH" />
     <meta name="geo.placename" content="Switzerland" />
-    
+
     <!-- Open Graph meta tags for social sharing -->
     <meta id="og-title" property="og:title" content="Prestige Production - Video Production Agency, Zurich, Switzerland" />
     <meta id="og-description" property="og:description" content="Video and photo agency in Zurich, specializing in video production. We create content for brands, corporate, real estate, social media content across Switzerland" />
@@ -213,7 +213,98 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       ]
     }
     </script>
-    
+
+    <!-- LocalBusiness Schema for Local SEO (Google Maps/Local Pack) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://www.prestigeproduction.ch/#localbusiness",
+      "name": "Prestige Production",
+      "image": "https://prestigeproduction.ch/assets/images/logo.svg",
+      "telephone": "+41762021959",
+      "email": "info@prestigeproduction.ch",
+      "url": "https://prestigeproduction.ch",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Im Grossacher 14",
+        "addressLocality": "Regensdorf",
+        "addressRegion": "Zurich",
+        "postalCode": "8105",
+        "addressCountry": "CH"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 47.4339,
+        "longitude": 8.4669
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Zürich"},
+        {"@type": "City", "name": "Zug"},
+        {"@type": "City", "name": "Basel"},
+        {"@type": "City", "name": "Geneva"},
+        {"@type": "City", "name": "Genève"},
+        {"@type": "City", "name": "Lausanne"},
+        {"@type": "City", "name": "Bern"},
+        {"@type": "City", "name": "Lugano"},
+        {"@type": "City", "name": "Lucerne"},
+        {"@type": "City", "name": "St. Gallen"},
+        {"@type": "City", "name": "Winterthur"},
+        {"@type": "AdministrativeArea", "name": "Switzerland"}
+      ],
+      "priceRange": "$$$$",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      "sameAs": [
+        "https://www.instagram.com/prestige_production_ch",
+        "https://www.linkedin.com/company/prestige-production-agency"
+      ]
+    }
+    </script>
+
+    <!-- Photographer Schema for enhanced visibility -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Photographer",
+      "@id": "https://www.prestigeproduction.ch/#photographer",
+      "name": "Prestige Production",
+      "url": "https://prestigeproduction.ch",
+      "image": "https://prestigeproduction.ch/assets/images/logo.svg",
+      "telephone": "+41762021959",
+      "email": "info@prestigeproduction.ch",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Regensdorf",
+        "addressRegion": "Zurich",
+        "postalCode": "8105",
+        "addressCountry": "CH"
+      },
+      "knowsAbout": [
+        "Real Estate Photography",
+        "Real Estate Videography",
+        "Drone Photography",
+        "Drone Videography",
+        "Corporate Videography",
+        "Event Photography",
+        "Event Videography",
+        "Luxury Property Marketing",
+        "Architectural Photography",
+        "Commercial Photography",
+        "Brand Content Creation",
+        "Social Media Content"
+      ],
+      "areaServed": {
+        "@type": "Country",
+        "name": "Switzerland"
+      }
+    }
+    </script>
+
     <!-- Script to dynamically update meta tags based on language -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {

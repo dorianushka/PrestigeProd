@@ -336,6 +336,9 @@
     "videoProduction": "Video production",
     "socialMedia": "Social media",
     "quality4k": "4K",
+    "newProject": "New",
+    "new": "New",
+    "featuredDesc": "November 2025 • Gala Dinner & Afterparty",
     "categories": {
       "all": "All",
       "realEstate": "Real estate",
@@ -355,15 +358,21 @@
       "mining": "Mining",
       "speakers": "Speakers",
       "industry": "Industry",
-      "highlights": "Highlights"
+      "highlights": "Highlights",
+      "gala": "Gala"
     },
     "reelsTitle": "Social media reels",
     "reelsSubtitle": "Engaging short-form content designed for maximum social media impact",
     "reels": {
       "instagramReel": "Instagram reel",
+      "eventTeaser": "Event Teaser",
       "smi": {
         "title": "SMI event highlight",
         "description": "Dynamic event coverage for social media"
+      },
+      "smi2025": {
+        "title": "SMI 2025 Gala",
+        "description": "Exclusive gala dinner & afterparty coverage"
       },
       "penthouseSpeech": {
         "title": "Penthouse experience",
@@ -712,6 +721,36 @@
         }
       },
       "mainVideoViews": "15K+"
+    },
+    "smi2025": {
+      "pageTitle": "Swiss Mining Institute 2025 | Prestige Production",
+      "seoTitle": "Swiss Mining Institute 2025 - Gala Dinner & Afterparty | Prestige Production",
+      "seoDescription": "Exclusive coverage of the Swiss Mining Institute 2025 gala dinner and afterparty. Featuring 100+ companies and 1000+ investors at Europe's most prestigious mining conference.",
+      "label": "November 2025",
+      "tagline": "Gala Dinner & Afterparty",
+      "teaserBadge": "Teaser",
+      "tapToPlay": "Tap to play",
+      "companies": "Companies",
+      "investors": "Investors",
+      "days": "Days",
+      "watchTeaser": "Watch Full Teaser",
+      "eventDate": "Event Date",
+      "filmingDate": "Filming Date",
+      "location": "Location",
+      "description1": "The Swiss Mining Institute returned for its 2025 edition, bringing together",
+      "description1Highlight": "Europe's elite mining industry leaders",
+      "description2": "We captured the essence of the gala dinner and exclusive afterparty, where deals are made and connections forged over champagne and conversation.",
+      "clickToExpand": "Click to expand",
+      "comingSoonLabel": "Stay tuned",
+      "comingSoonTitle": "More to come",
+      "comingSoonDesc": "Full aftermovie, photo gallery, and more content coming soon.",
+      "comingAftermovie": "Aftermovie",
+      "comingAftermovieDesc": "Full cinematic coverage",
+      "comingGallery": "Photo Gallery",
+      "comingGalleryDesc": "Event photography",
+      "comingReels": "Social Reels",
+      "comingReelsDesc": "Short-form content",
+      "comingSoonBadge": "Coming soon"
     }
   },
   "highlights": {
@@ -806,7 +845,22 @@
     "title": "Partners we are",
     "proud": "proud",
     "of": "of",
-    "partnerAlt": "Partner"
+    "partnerAlt": "Partner",
+    "overline": "Collaborations",
+    "titlePart1": "Partners we are",
+    "titlePart2": "proud of",
+    "moreComingSoon": "New collaborations in the works",
+    "viewTestimonial": "View testimonial from",
+    "testimonials": {
+      "smi": {
+        "quote": "Prestige Production captured the essence of our conference with exceptional cinematography. Their attention to detail and professionalism made them invaluable partners for SMI.",
+        "role": "Organizer"
+      },
+      "sothebys": {
+        "quote": "Working with Prestige Production elevated our property presentations to an entirely new level. Their cinematic approach perfectly showcases luxury real estate.",
+        "role": "Realtor"
+      }
+    }
   },
   "privacy": {
     "pageTitle": "Privacy Policy | Prestige Production",
@@ -832,6 +886,46 @@
     "section5": {
       "title": "Contact Information",
       "content": "If you have any questions about this Privacy Policy or our data practices, please contact us at info@prestigeproduction.ch or call +41 76 202 19 59."
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Prestige Production | Video Production & Photography Zurich, Switzerland",
+      "description": "Premium video production and photography agency in Zurich, Switzerland. Luxury real estate videography, corporate videos, drone photography, and brand content creation."
+    },
+    "portfolio": {
+      "title": "Portfolio | Video & Photo Projects - Prestige Production",
+      "description": "Explore our portfolio of premium video production and photography projects in Zurich, Switzerland. Luxury real estate, corporate events, brand content, and more."
+    },
+    "services": {
+      "title": "Services | Video Production & Photography Zurich",
+      "description": "Professional video production, photography, and drone services in Zurich, Switzerland. Real estate videography, corporate videos, event coverage, and brand content."
+    },
+    "contact": {
+      "title": "Contact Us | Prestige Production Zurich",
+      "description": "Get in touch with Prestige Production for video production and photography services in Zurich, Switzerland. Book a free consultation today."
+    },
+    "whyUs": {
+      "title": "Why Choose Us | Prestige Production Zurich",
+      "description": "Meet the team behind Prestige Production. Expert videographers and photographers in Zurich, Switzerland. Creative excellence and premium quality guaranteed."
+    },
+    "privacy": {
+      "title": "Privacy Policy | Prestige Production",
+      "description": "Privacy policy for Prestige Production. Learn how we handle your data and protect your privacy."
+    }
+  },
+  "services": {
+    "faq": {
+      "q1": "How much does video production cost in Zurich?",
+      "a1": "Our video production packages are customized based on your specific needs, project scope, and deliverables. Contact us for a personalized quote tailored to your project.",
+      "q2": "How long does a typical project take?",
+      "a2": "Project timelines vary based on complexity. Most projects are completed within 2-4 weeks from initial consultation to final delivery.",
+      "q3": "Do you offer drone photography and videography?",
+      "a3": "Yes, we offer professional drone photography and videography services for real estate, events, and commercial projects throughout Switzerland.",
+      "q4": "What areas do you serve?",
+      "a4": "We serve all of Switzerland, with primary focus on Zurich, Geneva, Basel, Lausanne, Bern, and surrounding areas.",
+      "q5": "Can I see examples of your work?",
+      "a5": "Absolutely! Visit our portfolio page to see examples of our video production and photography projects across various industries."
     }
   }
 }
