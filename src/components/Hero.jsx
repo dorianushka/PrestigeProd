@@ -12,9 +12,10 @@ const Hero = () => {
   const { t, i18n } = useTranslation();
   const videoRef = useRef(null);
   const containerRef = useRef(null);
+  const spotlightRef = useRef(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
 
-  // Parallax effect on mouse move
+  // Smooth spotlight that follows cursor
   useEffect(() => {
     const handleMouseMove = (e) => {
       const { clientX, clientY } = e;
@@ -22,6 +23,7 @@ const Hero = () => {
       const x = (clientX / innerWidth - 0.5) * 20;
       const y = (clientY / innerHeight - 0.5) * 10;
 
+      // Subtle parallax
       gsap.to('.hero-video-wrapper', {
         x: x,
         y: y,
@@ -35,6 +37,16 @@ const Hero = () => {
         duration: 1.2,
         ease: 'power2.out'
       });
+
+      // Spotlight follows cursor
+      if (spotlightRef.current) {
+        gsap.to(spotlightRef.current, {
+          left: clientX,
+          top: clientY,
+          duration: 1,
+          ease: 'power2.out'
+        });
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -63,6 +75,11 @@ const Hero = () => {
         { scale: 1, opacity: 1, duration: 2, ease: 'power2.out' },
         0.6
       )
+      // Spotlight fades in
+      .to('.hero-spotlight', {
+        opacity: 1,
+        duration: 1.5
+      }, 1.5)
       // Vignette intensifies
       .to('.hero-vignette', {
         opacity: 1,
@@ -75,56 +92,74 @@ const Hero = () => {
         duration: 1,
         ease: 'power3.out'
       }, 1.8)
-      .to('.hero-title-word', {
-        opacity: 1,
+      // Line 1 reveal
+      .to('.hero-title-line-1', {
         y: 0,
-        rotateX: 0,
-        duration: 1.2,
+        duration: 1,
         stagger: 0.08,
-        ease: 'power3.out'
+        ease: 'power4.out'
       }, 2)
+      // Line 2 reveal - slightly delayed
+      .to('.hero-title-line-2', {
+        y: 0,
+        duration: 1,
+        stagger: 0.08,
+        ease: 'power4.out'
+      }, 2.2)
+      // Line 3 reveal - the gold "brands"
+      .to('.hero-title-line-3', {
+        y: 0,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: 'power4.out'
+      }, 2.4)
       .to('.hero-divider', {
         scaleX: 1,
         duration: 1,
         ease: 'power2.inOut'
-      }, 2.6)
+      }, 3)
       .to('.hero-description', {
         opacity: 1,
         y: 0,
         duration: 1,
         ease: 'power3.out'
-      }, 2.8)
+      }, 3.2)
       .to('.hero-cta', {
         opacity: 1,
         y: 0,
         duration: 0.8,
         stagger: 0.12,
         ease: 'power3.out'
-      }, 3.1)
+      }, 3.5)
       .to('.hero-scroll-indicator', {
         opacity: 1,
         duration: 0.6
-      }, 3.3)
+      }, 3.8)
       .to('.hero-side-element', {
         opacity: 1,
         x: 0,
         duration: 0.8
-      }, 3.1);
+      }, 3.5);
   }, []);
 
-  // Split text into words for animation
-  const splitIntoWords = (text) => {
+  // Split text into words with mask reveal animation
+  const splitIntoWords = (text, lineIndex) => {
     return text.split(' ').map((word, i) => (
       <span
         key={i}
-        className='hero-title-word inline-block opacity-0 translate-y-12'
-        style={{
-          transform: 'translateY(48px) rotateX(-15deg)',
-          transformOrigin: 'center bottom'
-        }}
+        className='inline-block overflow-hidden'
+        style={{ paddingBottom: '0.1em' }}
       >
-        {word}
-        {i < text.split(' ').length - 1 && '\u00A0'}
+        <span
+          className={`hero-title-word hero-title-line-${lineIndex} inline-block`}
+          style={{
+            transform: 'translateY(120%)',
+            display: 'inline-block',
+          }}
+        >
+          {word}
+          {i < text.split(' ').length - 1 && '\u00A0'}
+        </span>
       </span>
     ));
   };
@@ -148,25 +183,51 @@ const Hero = () => {
           playsInline
           onLoadedData={() => setVideoLoaded(true)}
           className='absolute w-full h-full object-cover'
-          style={{ filter: 'brightness(0.7) contrast(1.05)' }}
+          style={{
+            filter: 'saturate(0.4) contrast(1.15) brightness(0.6)',
+          }}
         >
-          <source src='/assets/videos/hero.mp4' type='video/mp4' />
+          <source src='/assets/videos/Reel_1_penthouse_view.mp4' type='video/mp4' />
         </video>
+
+        {/* Warm gold tint overlay */}
+        <div
+          className='absolute inset-0'
+          style={{
+            background: `linear-gradient(135deg, ${GOLD}12 0%, transparent 40%, ${GOLD}08 100%)`,
+            mixBlendMode: 'overlay',
+          }}
+        />
 
         {/* Gradient overlays for depth */}
         <div
           className='absolute inset-0'
           style={{
-            background: 'linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 50%, rgba(0,0,0,0.4) 100%)'
+            background: 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, transparent 50%, rgba(0,0,0,0.3) 100%)'
           }}
         />
         <div
           className='absolute inset-0'
           style={{
-            background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 40%)'
+            background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%)'
           }}
         />
       </div>
+
+      {/* Simple spotlight effect - follows cursor */}
+      <div
+        ref={spotlightRef}
+        className='hero-spotlight absolute pointer-events-none z-[5] opacity-0'
+        style={{
+          width: '800px',
+          height: '800px',
+          marginLeft: '-400px',
+          marginTop: '-400px',
+          background: `radial-gradient(circle, ${GOLD}08 0%, transparent 50%)`,
+          left: '50%',
+          top: '50%',
+        }}
+      />
 
       {/* Cinematic vignette */}
       <div
@@ -204,21 +265,21 @@ const Hero = () => {
                 </span>
               </div>
 
-              {/* Main headline with word-by-word animation */}
-              <h1 className='mb-8' style={{ perspective: '1000px' }}>
-                <span className='block font-serif text-[clamp(3rem,8vw,7rem)] leading-[1] tracking-[-0.03em]'>
+              {/* Main headline with mask reveal animation */}
+              <h1 className='mb-8'>
+                <span className='block font-serif text-[clamp(3rem,8vw,7rem)] leading-[1.1] tracking-[-0.03em]'>
                   <span style={{ color: '#EAEBEC' }}>
-                    {splitIntoWords(t('hero.titleLine1', 'Cinematic vision'))}
+                    {splitIntoWords(t('hero.titleLine1', 'Cinematic vision'), 1)}
                   </span>
                 </span>
-                <span className='block font-serif text-[clamp(3rem,8vw,7rem)] leading-[1] tracking-[-0.03em] mt-2'>
+                <span className='block font-serif text-[clamp(3rem,8vw,7rem)] leading-[1.1] tracking-[-0.03em] mt-1'>
                   <span style={{ color: '#EAEBEC' }}>
-                    {splitIntoWords(t('hero.titleLine2', 'for exceptional'))}
+                    {splitIntoWords(t('hero.titleLine2', 'for exceptional'), 2)}
                   </span>
                 </span>
-                <span className='block font-serif italic text-[clamp(3rem,8vw,7rem)] leading-[1] tracking-[-0.03em] mt-2'>
+                <span className='block font-serif italic text-[clamp(3rem,8vw,7rem)] leading-[1.1] tracking-[-0.03em] mt-1'>
                   <span style={{ color: GOLD }}>
-                    {splitIntoWords(t('hero.titleLine3', 'brands'))}
+                    {splitIntoWords(t('hero.titleLine3', 'brands'), 3)}
                   </span>
                 </span>
               </h1>

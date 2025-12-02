@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 // Consistent gold colors
 const GOLD = '#C9A961';
@@ -20,7 +21,7 @@ const partners = [
 ];
 
 const Partners = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   const testimonials = [
@@ -174,6 +175,53 @@ const Partners = () => {
             {t('partners.moreComingSoon', 'New collaborations in the works')}
           </p>
         </motion.div>
+      </div>
+
+      {/* Final CTA - The only secondary CTA on the page */}
+      <div className='relative py-20 md:py-28 border-t border-white/5'>
+        <div className='max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center'>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {/* Simple, elegant headline */}
+            <h3
+              className='font-serif text-[clamp(1.5rem,4vw,2.5rem)] leading-[1.2] tracking-[-0.01em] mb-8'
+              style={{ color: '#EAEBEC' }}
+            >
+              {t('partners.ctaHeadline', 'Ready to create something')}
+              <span className='italic' style={{ color: GOLD }}>
+                {' '}{t('partners.ctaHeadlineAccent', 'extraordinary')}
+              </span>
+              ?
+            </h3>
+
+            {/* Single primary CTA */}
+            <Link
+              to={`/${i18n.language}/contact`}
+              className='group relative inline-flex items-center justify-center px-10 py-4 overflow-hidden transition-all duration-300'
+              style={{
+                background: `linear-gradient(135deg, ${GOLD_LIGHT}, ${GOLD})`,
+                color: '#0a0a0a',
+              }}
+            >
+              <span className='relative z-10 text-sm tracking-[0.15em] uppercase font-medium'>
+                {t('partners.ctaPrimary', 'Start Your Project')}
+              </span>
+              <span
+                className='absolute inset-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out'
+                style={{ background: GOLD_LIGHT }}
+              />
+              <span className='relative z-10 ml-3 group-hover:translate-x-1 transition-transform duration-300'>
+                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                </svg>
+              </span>
+            </Link>
+          </motion.div>
+        </div>
       </div>
 
       {/* Subtle bottom border */}

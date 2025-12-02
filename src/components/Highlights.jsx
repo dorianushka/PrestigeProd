@@ -141,71 +141,26 @@ const Highlights = () => {
               </div>
             </div>
 
-            {/* Right: Navigation links */}
-            <div className='highlights-nav flex flex-col sm:flex-row gap-5 lg:gap-8'>
+            {/* Right: Single subtle link */}
+            <div className='highlights-nav'>
               <Link
                 to={`/${currentLang}/portfolio`}
-                className='group flex items-center gap-4 transition-all duration-500'
+                className='group flex items-center gap-3 transition-all duration-500'
               >
-                <span className='relative overflow-hidden'>
-                  <span
-                    className='block text-sm tracking-[0.15em] uppercase transition-transform duration-500 group-hover:-translate-y-full'
-                    style={{ color: 'rgba(234, 235, 236, 0.6)' }}
-                  >
-                    {t('highlights.fullPortfolio', 'View Portfolio')}
-                  </span>
-                  <span
-                    className='absolute top-0 left-0 block text-sm tracking-[0.15em] uppercase translate-y-full transition-transform duration-500 group-hover:translate-y-0'
-                    style={{ color: GOLD }}
-                  >
-                    {t('highlights.fullPortfolio', 'View Portfolio')}
-                  </span>
-                </span>
                 <span
-                  className='w-10 h-px transition-all duration-500 group-hover:w-16'
-                  style={{ background: `${GOLD}66` }}
-                />
+                  className='text-xs tracking-[0.2em] uppercase transition-colors duration-300 group-hover:text-white/80'
+                  style={{ color: 'rgba(234, 235, 236, 0.4)' }}
+                >
+                  {t('highlights.fullPortfolio', 'All Projects')}
+                </span>
                 <svg
-                  className='w-4 h-4 transition-all duration-500 group-hover:translate-x-2'
-                  style={{ color: `${GOLD}99` }}
+                  className='w-3.5 h-3.5 transition-all duration-500 group-hover:translate-x-1'
+                  style={{ color: `${GOLD}80` }}
                   fill='none'
                   stroke='currentColor'
                   viewBox='0 0 24 24'
                 >
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-                </svg>
-              </Link>
-
-              <Link
-                to={`/${currentLang}/services`}
-                className='group flex items-center gap-4 transition-all duration-500'
-              >
-                <span className='relative overflow-hidden'>
-                  <span
-                    className='block text-sm tracking-[0.15em] uppercase transition-transform duration-500 group-hover:-translate-y-full'
-                    style={{ color: 'rgba(234, 235, 236, 0.6)' }}
-                  >
-                    {t('highlights.ourServices', 'Our Services')}
-                  </span>
-                  <span
-                    className='absolute top-0 left-0 block text-sm tracking-[0.15em] uppercase translate-y-full transition-transform duration-500 group-hover:translate-y-0'
-                    style={{ color: GOLD }}
-                  >
-                    {t('highlights.ourServices', 'Our Services')}
-                  </span>
-                </span>
-                <span
-                  className='w-10 h-px transition-all duration-500 group-hover:w-16'
-                  style={{ background: `${GOLD}66` }}
-                />
-                <svg
-                  className='w-4 h-4 transition-all duration-500 group-hover:translate-x-2'
-                  style={{ color: `${GOLD}99` }}
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
                 </svg>
               </Link>
             </div>

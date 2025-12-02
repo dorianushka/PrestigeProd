@@ -1,291 +1,211 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 // Consistent gold colors
 const GOLD = '#C9A961';
 const GOLD_LIGHT = '#E8D5A3';
 
 const ValueProposition = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const videoScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1, 1.05]);
+  const videoOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 0.4, 0.4, 0]);
 
   const capabilities = [
     {
       number: '01',
       title: t('valueProposition.capability1.title', 'Cinematic Production'),
-      description: t('valueProposition.capability1.desc', 'Cinema-grade 4K+ equipment and techniques that transform ordinary moments into extraordinary visual narratives.'),
+      stat: '4K+',
+      statLabel: t('valueProposition.capability1.statLabel', 'Resolution'),
     },
     {
       number: '02',
       title: t('valueProposition.capability2.title', 'Brand Storytelling'),
-      description: t('valueProposition.capability2.desc', 'Strategic visual content that positions your brand as the premium choice, differentiating you in competitive markets.'),
+      stat: '100%',
+      statLabel: t('valueProposition.capability2.statLabel', 'Satisfaction'),
     },
     {
       number: '03',
       title: t('valueProposition.capability3.title', 'Swiss Precision'),
-      description: t('valueProposition.capability3.desc', 'Meticulous attention to detail, reliable timelines, and seamless collaboration from concept to final delivery.'),
+      stat: '48h',
+      statLabel: t('valueProposition.capability3.statLabel', 'Turnaround'),
     },
   ];
 
   return (
-    <section className='relative overflow-hidden' style={{ background: '#0a0a0a' }}>
-      {/* First block - Centered statement */}
-      <div className='relative py-32 md:py-48'>
-        {/* Subtle background accent */}
+    <section ref={containerRef} className='relative overflow-hidden' style={{ background: '#0a0a0a' }}>
+      {/* Main block - Statement with cinematic video backdrop */}
+      <div className='relative py-24 md:py-32'>
+        {/* Full-bleed video background with scroll-driven animation */}
+        <div className='absolute inset-0 overflow-hidden'>
+          <motion.div
+            style={{ scale: videoScale, opacity: videoOpacity }}
+            className='absolute inset-0'
+          >
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className='w-full h-full object-cover'
+              style={{ filter: 'grayscale(100%) contrast(1.2)' }}
+            >
+              <source src='/assets/videos/lowres_short_reel_showcase_v2_1.mp4' type='video/mp4' />
+            </video>
+            {/* Gold tint overlay */}
+            <div
+              className='absolute inset-0'
+              style={{
+                background: `linear-gradient(135deg, ${GOLD}15 0%, transparent 50%, ${GOLD}10 100%)`,
+                mixBlendMode: 'overlay'
+              }}
+            />
+          </motion.div>
+
+          {/* Vignette effect */}
+          <div
+            className='absolute inset-0 pointer-events-none'
+            style={{
+              boxShadow: 'inset 0 0 200px 100px #0a0a0a',
+            }}
+          />
+        </div>
+
+        {/* Subtle radial accent */}
         <div
-          className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-[0.03]'
+          className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.03]'
           style={{
-            background: `radial-gradient(circle, ${GOLD} 0%, transparent 70%)`,
+            background: `radial-gradient(circle, ${GOLD} 0%, transparent 60%)`,
           }}
         />
 
-        <div className='relative z-10 max-w-5xl mx-auto px-6 md:px-12 lg:px-20 text-center'>
+        <div className='relative z-10 max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center'>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
             viewport={{ once: true }}
           >
-            {/* Overline */}
-            <span
-              className='inline-block text-[11px] tracking-[0.3em] uppercase mb-8'
-              style={{ color: GOLD }}
-            >
-              {t('valueProposition.overline', 'Our Philosophy')}
-            </span>
-
-            {/* Main statement */}
+            {/* Single impactful statement - dramatically reduced */}
             <h2
-              className='font-serif text-[clamp(1.8rem,4vw,3rem)] leading-[1.3] tracking-[-0.01em] mb-8'
+              className='font-serif text-[clamp(2rem,5vw,3.5rem)] leading-[1.2] tracking-[-0.02em]'
               style={{ color: '#EAEBEC' }}
             >
-              {t('valueProposition.mainStatement', 'We believe that exceptional visuals are not merely produced—they are crafted with intention, refined with precision, and delivered with the understanding that your brand deserves nothing less than extraordinary.')}
+              {t('valueProposition.mainStatement', 'Your brand deserves')}
+              <span className='italic block mt-2' style={{ color: GOLD }}>
+                {t('valueProposition.mainStatementAccent', 'nothing less than extraordinary.')}
+              </span>
             </h2>
-
-            {/* Divider */}
-            <div
-              className='w-16 h-px mx-auto'
-              style={{ background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }}
-            />
           </motion.div>
         </div>
       </div>
 
-      {/* Second block - Capabilities */}
-      <div className='relative py-24 md:py-32 border-t border-white/5'>
+      {/* Capabilities - Condensed horizontal layout with stats */}
+      <div className='relative py-16 md:py-20 border-t border-white/5'>
         <div className='max-w-7xl mx-auto px-6 md:px-12 lg:px-20'>
-          <div className='grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20'>
-            {/* Left column - Section header */}
-            <div className='lg:col-span-4'>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 lg:gap-8'>
+            {capabilities.map((capability, index) => (
               <motion.div
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className='lg:sticky lg:top-32'
+                className='group relative'
               >
-                <span
-                  className='inline-block text-[11px] tracking-[0.3em] uppercase mb-6'
-                  style={{ color: GOLD }}
-                >
-                  {t('valueProposition.capabilitiesOverline', 'What We Offer')}
-                </span>
-                <h3
-                  className='font-serif text-[clamp(2rem,4vw,2.5rem)] leading-[1.15] tracking-[-0.02em] mb-6'
-                  style={{ color: '#EAEBEC' }}
-                >
-                  {t('valueProposition.capabilitiesTitle', 'Capabilities')}
-                </h3>
+                {/* Card with hover effect */}
                 <div
-                  className='w-12 h-px'
-                  style={{ background: `linear-gradient(90deg, ${GOLD}, transparent)` }}
-                />
-              </motion.div>
-            </div>
-
-            {/* Right column - Capabilities list */}
-            <div className='lg:col-span-8'>
-              <div className='space-y-16 md:space-y-20'>
-                {capabilities.map((capability, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className='group'
+                  className='relative p-6 md:p-8 border border-white/5 transition-all duration-500 group-hover:border-white/10'
+                  style={{ background: 'rgba(255,255,255,0.01)' }}
+                >
+                  {/* Number accent */}
+                  <span
+                    className='absolute top-4 right-4 text-[10px] tracking-[0.2em]'
+                    style={{ color: `${GOLD}50` }}
                   >
-                    <div className='flex gap-6 md:gap-10'>
-                      {/* Number */}
-                      <span
-                        className='text-sm font-light tracking-wider pt-1'
-                        style={{ color: `${GOLD}80` }}
-                      >
-                        {capability.number}
-                      </span>
+                    {capability.number}
+                  </span>
 
-                      {/* Content */}
-                      <div className='flex-1'>
-                        <h4
-                          className='font-serif text-2xl md:text-3xl leading-tight tracking-[-0.01em] mb-4 transition-colors duration-300'
-                          style={{ color: '#EAEBEC' }}
-                          onMouseEnter={(e) => e.currentTarget.style.color = GOLD}
-                          onMouseLeave={(e) => e.currentTarget.style.color = '#EAEBEC'}
-                        >
-                          {capability.title}
-                        </h4>
-                        <p
-                          className='text-lg leading-relaxed max-w-xl'
-                          style={{ color: 'rgba(234, 235, 236, 0.6)', fontWeight: 300 }}
-                        >
-                          {capability.description}
-                        </p>
-                      </div>
-                    </div>
+                  {/* Stat - big visual anchor */}
+                  <div
+                    className='font-serif text-4xl md:text-5xl lg:text-6xl leading-none tracking-[-0.03em] mb-3 transition-colors duration-300'
+                    style={{ color: 'rgba(234, 235, 236, 0.1)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = `${GOLD}40`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = 'rgba(234, 235, 236, 0.1)';
+                    }}
+                  >
+                    {capability.stat}
+                  </div>
 
-                    {/* Separator */}
-                    {index < capabilities.length - 1 && (
-                      <div
-                        className='mt-16 md:mt-20 h-px ml-12 md:ml-16'
-                        style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.05), transparent)' }}
-                      />
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+                  {/* Title */}
+                  <h4
+                    className='font-serif text-lg md:text-xl leading-tight tracking-[-0.01em] mb-1'
+                    style={{ color: '#EAEBEC' }}
+                  >
+                    {capability.title}
+                  </h4>
+
+                  {/* Stat label */}
+                  <p
+                    className='text-xs tracking-wider uppercase'
+                    style={{ color: `${GOLD}80` }}
+                  >
+                    {capability.statLabel}
+                  </p>
+
+                  {/* Hover line accent */}
+                  <div
+                    className='absolute bottom-0 left-0 h-px w-0 group-hover:w-full transition-all duration-700'
+                    style={{ background: `linear-gradient(90deg, ${GOLD}60, transparent)` }}
+                  />
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Third block - Social proof */}
-      <div className='relative py-32 md:py-40 border-t border-white/5'>
+      {/* Client logos - simplified, no redundant text */}
+      <div className='relative py-12 md:py-16 border-t border-white/5'>
         <div className='max-w-7xl mx-auto px-6 md:px-12 lg:px-20'>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center'>
-            {/* Left - Big number */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              viewport={{ once: true }}
-              className='text-center lg:text-left'
-            >
-              <div
-                className='font-serif text-[clamp(6rem,15vw,12rem)] leading-none tracking-[-0.03em]'
-                style={{
-                  background: `linear-gradient(135deg, ${GOLD_LIGHT} 0%, ${GOLD} 50%, ${GOLD_LIGHT} 100%)`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                100%
-              </div>
-              <p
-                className='text-lg md:text-xl mt-4'
-                style={{ color: 'rgba(234, 235, 236, 0.7)', fontWeight: 300 }}
-              >
-                {t('valueProposition.satisfactionLabel', 'Client satisfaction rate')}
-              </p>
-            </motion.div>
-
-            {/* Right - Testimonial style content */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <span
-                className='inline-block text-[11px] tracking-[0.3em] uppercase mb-8'
-                style={{ color: GOLD }}
-              >
-                {t('valueProposition.trustedByOverline', 'Trusted By')}
-              </span>
-
-              <p
-                className='font-serif text-2xl md:text-3xl leading-relaxed mb-10'
-                style={{ color: '#EAEBEC' }}
-              >
-                {t('valueProposition.trustedByStatement', 'From prestigious real estate agencies to leading industry conferences, our clients choose us for our unwavering commitment to quality and our ability to elevate their visual presence.')}
-              </p>
-
-              {/* Client logos */}
-              <div className='flex items-center gap-10'>
-                <img
-                  src='/assets/logos/zurich_sothebys_logo.png'
-                  alt="Zurich Sotheby's"
-                  className='h-8 md:h-10 opacity-60 hover:opacity-100 transition-opacity duration-300 filter brightness-0 invert'
-                />
-                <div className='w-px h-8 bg-white/10' />
-                <img
-                  src='/assets/logos/smi_logo.png'
-                  alt='Swiss Mining Institute'
-                  className='h-8 md:h-10 opacity-60 hover:opacity-100 transition-opacity duration-300 filter brightness-0 invert'
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-
-      {/* CTA block */}
-      <div className='relative py-24 md:py-32 border-t border-white/5'>
-        <div className='max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center'>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className='flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12'
           >
-            <h3
-              className='font-serif text-[clamp(1.8rem,4vw,2.5rem)] leading-[1.2] tracking-[-0.01em] mb-10'
-              style={{ color: '#EAEBEC' }}
+            <span
+              className='text-[10px] tracking-[0.3em] uppercase'
+              style={{ color: `${GOLD}60` }}
             >
-              {t('valueProposition.ctaHeadline', 'Ready to elevate your brand\'s visual presence?')}
-            </h3>
+              {t('valueProposition.trustedByOverline', 'Trusted By')}
+            </span>
 
-            <div className='flex flex-col sm:flex-row gap-5 justify-center'>
-              <Link
-                to={`/${i18n.language}/contact`}
-                className='group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden transition-all duration-300'
-                style={{
-                  background: `linear-gradient(135deg, ${GOLD_LIGHT}, ${GOLD})`,
-                  color: '#0a0a0a',
-                }}
-              >
-                <span className='relative z-10 text-sm tracking-[0.15em] uppercase font-medium'>
-                  {t('valueProposition.ctaPrimary', 'Get Your Quote')}
-                </span>
-                <span
-                  className='absolute inset-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out'
-                  style={{ background: GOLD_LIGHT }}
-                />
-                <span className='relative z-10 ml-3 group-hover:translate-x-1 transition-transform duration-300'>
-                  <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-                  </svg>
-                </span>
-              </Link>
-
-              <Link
-                to={`/${i18n.language}/portfolio`}
-                className='group inline-flex items-center justify-center px-10 py-5 transition-all duration-300'
-                style={{
-                  color: '#EAEBEC',
-                  border: '1px solid rgba(234, 235, 236, 0.2)',
-                }}
-              >
-                <span className='text-sm tracking-[0.15em] uppercase font-medium'>
-                  {t('valueProposition.ctaSecondary', 'View Portfolio')}
-                </span>
-                <span className='ml-3 group-hover:translate-x-1 transition-transform duration-300'>
-                  <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-                  </svg>
-                </span>
-              </Link>
+            <div className='flex items-center gap-8 md:gap-12'>
+              <img
+                src='/assets/logos/zurich_sothebys_logo.png'
+                alt="Zurich Sotheby's"
+                className='h-6 md:h-8 opacity-40 hover:opacity-70 transition-opacity duration-300 filter brightness-0 invert'
+                loading='lazy'
+              />
+              <div className='w-px h-6 bg-white/10' />
+              <img
+                src='/assets/logos/smi_logo.png'
+                alt='Swiss Mining Institute'
+                className='h-6 md:h-8 opacity-40 hover:opacity-70 transition-opacity duration-300 filter brightness-0 invert'
+                loading='lazy'
+              />
             </div>
           </motion.div>
         </div>
