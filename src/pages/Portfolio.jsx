@@ -33,7 +33,7 @@ const Portfolio = () => {
     {
       id: 'reel-smi-2025',
       src: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/smi_2025_teaser_vertical.mp4`,
-      title: t('portfolio.reels.smi2025.title', 'SMI 2025 Gala & Afterparty'),
+      title: t('portfolio.reels.smi2025.title', 'SMI 2025 Gala Dinner & Afterparty'),
       category: 'social',
       type: t('portfolio.reels.eventTeaser', 'Event Teaser'),
       description: t('portfolio.reels.smi2025.description', 'Exclusive gala dinner & afterparty coverage'),
