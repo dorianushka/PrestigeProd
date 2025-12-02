@@ -244,16 +244,28 @@ const SmiProject = () => {
 
       <section
         ref={containerRef}
-        className='min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-white relative overflow-hidden'
+        className='min-h-screen text-white relative overflow-hidden'
+        style={{
+          background: 'linear-gradient(180deg, #0a0908 0%, #1a1612 30%, #12100c 70%, #0a0908 100%)',
+        }}
       >
-        {/* Decorative background elements with parallax */}
+        {/* Luxurious golden grain overlay */}
+        <div
+          className='fixed inset-0 pointer-events-none z-50 opacity-[0.025]'
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Decorative background elements with parallax - Golden tones */}
         <div
           ref={parallaxRef}
           className='absolute inset-0 overflow-hidden pointer-events-none'
         >
-          <div className='parallax-element absolute top-32 left-10 w-64 h-64 bg-gradient-to-r from-[#205c57]/10 to-[#9eb6a9]/10 rounded-full blur-3xl'></div>
-          <div className='parallax-element absolute bottom-40 right-10 w-80 h-80 bg-gradient-to-r from-[#9eb6a9]/5 to-[#205c57]/5 rounded-full blur-3xl'></div>
-          <div className='parallax-element absolute top-1/2 left-1/2 w-48 h-48 bg-gradient-to-r from-[#205c57]/8 to-[#9eb6a9]/8 rounded-full blur-2xl'></div>
+          <div className='parallax-element absolute top-32 left-10 w-64 h-64 bg-gradient-to-r from-[#D4AF37]/15 to-[#E8D5B7]/10 rounded-full blur-3xl'></div>
+          <div className='parallax-element absolute bottom-40 right-10 w-80 h-80 bg-gradient-to-r from-[#E8D5B7]/8 to-[#A67C00]/10 rounded-full blur-3xl'></div>
+          <div className='parallax-element absolute top-1/2 left-1/2 w-48 h-48 bg-gradient-to-r from-[#8B6914]/12 to-[#D4AF37]/8 rounded-full blur-2xl'></div>
+          <div className='parallax-element absolute top-1/4 right-1/3 w-32 h-32 bg-[#D4AF37]/5 rounded-full blur-2xl animate-pulse' style={{ animationDuration: '6s' }}></div>
         </div>
 
         <div className='relative z-10 px-6 pt-20 pb-32'>
@@ -261,7 +273,7 @@ const SmiProject = () => {
           <div className='max-w-6xl mx-auto mb-12 px-2 flex flex-col gap-4 md:flex-row md:justify-between md:items-center after-link'>
             <Link
               to={`/${currentLang}/portfolio`}
-              className='inline-flex items-center text-sm text-white/60 hover:text-[#9eb6a9] transition-all duration-300 group self-start'
+              className='inline-flex items-center text-sm text-white/60 hover:text-[#D4AF37] transition-all duration-300 group self-start'
             >
               <svg
                 className='w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300'
@@ -284,7 +296,7 @@ const SmiProject = () => {
                 e.preventDefault();
                 smoothScrollTo('aftermovie');
               }}
-              className='inline-flex items-center text-sm tracking-wide text-white/60 hover:text-[#9eb6a9] transition-all duration-300 group self-start md:self-auto'
+              className='inline-flex items-center text-sm tracking-wide text-white/60 hover:text-[#D4AF37] transition-all duration-300 group self-start md:self-auto'
             >
               {t(
                 'projects.smi.watchAftermovie',
@@ -370,13 +382,13 @@ const SmiProject = () => {
 
                     <div className='flex items-center justify-between'>
                       <div className='flex flex-wrap gap-1 md:gap-2'>
-                        <span className='text-xs text-[#9eb6a9] bg-[#9eb6a9]/20 backdrop-blur-sm px-1.5 md:px-2 py-0.5 md:py-1 rounded'>
+                        <span className='text-xs text-[#D4AF37] bg-[#D4AF37]/20 backdrop-blur-sm px-1.5 md:px-2 py-0.5 md:py-1 rounded'>
                           {t('projects.smi.mainVideo.tags.luxuryEvent', 'Luxury Event')}
                         </span>
-                        <span className='text-xs text-[#9eb6a9] bg-[#9eb6a9]/20 backdrop-blur-sm px-1.5 md:px-2 py-0.5 md:py-1 rounded'>
+                        <span className='text-xs text-[#D4AF37] bg-[#D4AF37]/20 backdrop-blur-sm px-1.5 md:px-2 py-0.5 md:py-1 rounded'>
                           {t('projects.smi.mainVideo.tags.miningConference', 'Mining Conference')}
                         </span>
-                        <span className='text-xs text-[#9eb6a9] bg-[#9eb6a9]/20 backdrop-blur-sm px-1.5 md:px-2 py-0.5 md:py-1 rounded'>
+                        <span className='text-xs text-[#D4AF37] bg-[#D4AF37]/20 backdrop-blur-sm px-1.5 md:px-2 py-0.5 md:py-1 rounded'>
                           {t('projects.smi.mainVideo.tags.premiumProduction', 'Premium Production')}
                         </span>
                       </div>
@@ -402,7 +414,7 @@ const SmiProject = () => {
 
                 {/* Click indicator */}
                 <div className='absolute top-3 right-3 md:top-4 md:right-4 bg-black/50 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-300'>
-                  <svg className='w-4 h-4 text-[#9eb6a9]' fill='none' stroke='currentColor' viewBox='0 0 24 24' strokeWidth={2}>
+                  <svg className='w-4 h-4 text-[#D4AF37]' fill='none' stroke='currentColor' viewBox='0 0 24 24' strokeWidth={2}>
                     <path strokeLinecap='round' strokeLinejoin='round' d='M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2M16 4h2a2 2 0 012 2v2M16 20h2a2 2 0 002-2v-2' />
                   </svg>
                 </div>
@@ -427,7 +439,7 @@ const SmiProject = () => {
                 />
                 {/* Click indicator */}
                 <div className='absolute top-3 right-3 md:top-4 md:right-4 bg-black/50 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-all duration-300'>
-                  <svg className='w-4 h-4 text-[#9eb6a9]' fill='none' stroke='currentColor' viewBox='0 0 24 24' strokeWidth={2}>
+                  <svg className='w-4 h-4 text-[#D4AF37]' fill='none' stroke='currentColor' viewBox='0 0 24 24' strokeWidth={2}>
                     <path strokeLinecap='round' strokeLinejoin='round' d='M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2M16 4h2a2 2 0 012 2v2M16 20h2a2 2 0 002-2v-2' />
                   </svg>
                 </div>
@@ -448,8 +460,8 @@ const SmiProject = () => {
                   <svg className='w-5 h-5' fill='none' stroke='url(#leftGradient)' viewBox='0 0 24 24' strokeWidth={2}>
                     <defs>
                       <linearGradient id='leftGradient' x1='0%' y1='0%' x2='100%' y2='0%'>
-                        <stop offset='0%' stopColor='#9eb6a9' />
-                        <stop offset='100%' stopColor='#205c57' />
+                        <stop offset='0%' stopColor='#D4AF37' />
+                        <stop offset='100%' stopColor='#8B6914' />
                       </linearGradient>
                     </defs>
                     <path strokeLinecap='round' strokeLinejoin='round' d='M15 19l-7-7 7-7' />
@@ -461,8 +473,8 @@ const SmiProject = () => {
                   <svg className='w-5 h-5' fill='none' stroke='url(#rightGradient)' viewBox='0 0 24 24' strokeWidth={2}>
                     <defs>
                       <linearGradient id='rightGradient' x1='0%' y1='0%' x2='100%' y2='0%'>
-                        <stop offset='0%' stopColor='#205c57' />
-                        <stop offset='100%' stopColor='#9eb6a9' />
+                        <stop offset='0%' stopColor='#8B6914' />
+                        <stop offset='100%' stopColor='#D4AF37' />
                       </linearGradient>
                     </defs>
                     <path strokeLinecap='round' strokeLinejoin='round' d='M9 5l7 7-7 7' />
@@ -471,7 +483,7 @@ const SmiProject = () => {
               </div>
             </div>
             <div className='min-h-[400px] md:h-[600px] flex items-center justify-center relative group px-4 md:px-0'>
-              <div className='absolute inset-0 bg-gradient-to-r from-[#9eb6a9]/5 via-transparent to-[#9eb6a9]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none'></div>
+              <div className='absolute inset-0 bg-gradient-to-r from-[#D4AF37]/5 via-transparent to-[#D4AF37]/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none'></div>
               <Carousel items={videos} baseWidth={1000} loop={true} round={false} />
             </div>
           </div>
@@ -606,7 +618,7 @@ const SmiProject = () => {
                 href='https://www.swissmininginstitute.ch/'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='text-white/60 hover:text-[#9eb6a9] transition-colors duration-300 font-medium'
+                className='text-white/60 hover:text-[#D4AF37] transition-colors duration-300 font-medium'
               >
                 {t('projects.smi.partnerName', 'Swiss Mining Institute')}
               </a>
