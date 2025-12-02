@@ -400,3 +400,13 @@ video:-ms-fullscreen {
 .card:hover::before {
   opacity: 1;
 }
+
+/* Scrollbar hide utility for film gallery */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

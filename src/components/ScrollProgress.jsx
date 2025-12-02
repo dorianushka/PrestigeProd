@@ -29,8 +29,13 @@ const ScrollProgress = () => {
   return (
     <div className='fixed top-0 left-0 w-full h-[3px] bg-transparent z-[9999]'>
       <div
-        className='h-full bg-white rounded-sm transition-[width] duration-200 ease-[cubic-bezier(0.4,0.0,0.2,1)]'
-        style={{ width: `${scrollWidth}%` }}
+        className='h-full rounded-sm transition-[width] duration-200 ease-[cubic-bezier(0.4,0.0,0.2,1)]'
+        style={{
+          width: `${scrollWidth}%`,
+          background: 'linear-gradient(90deg, #B8860B, #FFD700, #DAA520, #FFC125, #B8860B)',
+          backgroundSize: '200% 100%',
+          backgroundPosition: `${scrollWidth}% 0%`,
+        }}
       />
     </div>
   );

@@ -194,4 +194,14 @@ export const projects = [
     category: 'realEstate',
     typeKey: 'portfolio.types.realEstate'
   },
+  {
+    id: 3,
+    title: 'Swiss Mining Institute 2025',
+    video: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/smi_2025_teaser_vertical.mp4`,
+    link: '/portfolio/smi-2025',
+    category: 'events',
+    typeKey: 'portfolio.types.eventProduction',
+    isVertical: true,
+    isFeatured: true,
+  },
 ];

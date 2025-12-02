@@ -1,188 +1,183 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+
+// Consistent gold colors
+const GOLD = '#C9A961';
+const GOLD_LIGHT = '#E8D5A3';
 
 const partners = [
   {
     name: 'Swiss Mining Institute',
     logo: `${import.meta.env.VITE_CLOUDFRONT_URL}/logos/smi_logo.png`,
-    description: 'Leading mining conference in Europe',
     website: 'https://swissmininginstitute.ch/',
   },
   {
     name: "Zurich Sotheby's",
     logo: `${import.meta.env.VITE_CLOUDFRONT_URL}/logos/zurich_sothebys_logo.png`,
-    description: 'International Realty',
     website: 'https://www.ch-sothebysrealty.ch/en',
   },
 ];
 
 const Partners = () => {
   const { t } = useTranslation();
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
 
-  // Duplicate partners array for seamless loop
-  const marqueePartners = [...partners, ...partners, ...partners, ...partners];
+  const testimonials = [
+    {
+      id: 1,
+      quote: t('partners.testimonials.smi.quote', "Prestige Production captured the essence of our conference with exceptional cinematography. Their attention to detail and professionalism made them invaluable partners for SMI."),
+      author: 'Manuel Bally',
+      role: t('partners.testimonials.smi.role', 'Organizer'),
+      company: 'Swiss Mining Institute',
+      partnerIndex: 0,
+    },
+    {
+      id: 2,
+      quote: t('partners.testimonials.sothebys.quote', "Working with Prestige Production elevated our property presentations to an entirely new level. Their cinematic approach perfectly showcases luxury real estate."),
+      author: 'Soroush Efati',
+      role: t('partners.testimonials.sothebys.role', 'Realtor'),
+      company: "Zurich Sotheby's International Realty",
+      partnerIndex: 1,
+    },
+  ];
 
   return (
-    <section className='relative overflow-hidden py-32 md:py-40' style={{ background: '#0a0a0a' }}>
-      {/* Subtle background */}
-      <div className='absolute inset-0 pointer-events-none'>
-        {/* Top border */}
-        <div
-          className='absolute top-0 left-0 w-full h-px'
-          style={{ background: 'linear-gradient(90deg, transparent, rgba(158, 182, 169, 0.1), transparent)' }}
-        />
+    <section
+      className='relative overflow-hidden py-20 md:py-28'
+      style={{
+        background: '#050505',
+      }}
+    >
+      {/* Subtle top border */}
+      <div className='absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent' />
 
-        {/* Subtle radial accent */}
-        <div
-          className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-[0.02]'
-          style={{
-            background: 'radial-gradient(circle, #9EB6A9 0%, transparent 60%)',
-          }}
-        />
-      </div>
+      {/* Main content */}
+      <div className='relative z-10 max-w-6xl mx-auto px-6 md:px-10'>
 
-      <div className='relative z-10'>
-        {/* Section header */}
+        {/* Compact header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className='text-center mb-20 md:mb-28 px-6 md:px-12 lg:px-20'
+          className='flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16'
         >
-          <span
-            className='inline-block text-[11px] tracking-[0.3em] uppercase mb-6'
-            style={{ color: '#9EB6A9' }}
-          >
-            {t('partners.overline', 'Collaborations')}
-          </span>
+          <div>
+            <span className='text-[10px] tracking-[0.3em] uppercase block mb-3' style={{ color: `${GOLD}b3` }}>
+              {t('partners.overline', 'Collaborations')}
+            </span>
+            <h2 className='font-serif text-3xl md:text-4xl tracking-[-0.02em] text-white/90'>
+              {t('partners.titlePart1', 'Partners we are')}{' '}
+              <span className='italic' style={{ color: GOLD }}>{t('partners.titlePart2', 'proud of')}</span>
+            </h2>
+          </div>
 
-          <h2 className='font-serif text-[clamp(2rem,5vw,3.5rem)] leading-[1.1] tracking-[-0.02em]'>
-            <span style={{ color: '#EAEBEC' }}>
-              {t('partners.titlePart1', 'Partners we are')}
-            </span>
-            <span className='italic' style={{ color: '#9EB6A9' }}>
-              {' '}{t('partners.titlePart2', 'proud of')}
-            </span>
-          </h2>
+          {/* Partner logos - inline on desktop */}
+          <div className='flex items-center gap-8'>
+            {partners.map((partner, index) => (
+              <a
+                key={partner.name}
+                href={partner.website}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='group'
+                onMouseEnter={() => setActiveTestimonial(index)}
+              >
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className='h-8 md:h-10 w-auto object-contain filter brightness-0 invert opacity-40 group-hover:opacity-80 transition-opacity duration-500'
+                  loading='lazy'
+                />
+              </a>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Marquee container */}
-        <div className='relative'>
-          {/* Fade edges */}
-          <div
-            className='absolute left-0 top-0 w-32 md:w-48 h-full z-10 pointer-events-none'
-            style={{ background: 'linear-gradient(90deg, #0a0a0a 0%, transparent 100%)' }}
-          />
-          <div
-            className='absolute right-0 top-0 w-32 md:w-48 h-full z-10 pointer-events-none'
-            style={{ background: 'linear-gradient(-90deg, #0a0a0a 0%, transparent 100%)' }}
-          />
-
-          {/* Marquee track */}
-          <div className='overflow-hidden py-8'>
-            <div
-              className='flex items-center gap-16 md:gap-24 animate-marquee hover:[animation-play-state:paused]'
-              style={{
-                width: 'fit-content',
-              }}
-            >
-              {marqueePartners.map((partner, index) => (
-                <a
-                  key={index}
-                  href={partner.website}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='group flex-shrink-0'
-                >
-                  <div
-                    className='relative px-10 py-8 md:px-14 md:py-10 transition-all duration-500 group-hover:border-[#9EB6A9]/30'
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%)',
-                      border: '1px solid rgba(255,255,255,0.05)',
-                    }}
-                  >
-                    {/* Logo */}
-                    <div className='h-10 md:h-12 flex items-center justify-center mb-4'>
-                      <img
-                        src={partner.logo}
-                        alt={partner.name}
-                        className='h-full w-auto max-w-[160px] md:max-w-[180px] object-contain filter brightness-0 invert opacity-60 group-hover:opacity-100 transition-all duration-500'
-                        loading='lazy'
-                      />
-                    </div>
-
-                    {/* Partner info - reveals on hover */}
-                    <div className='text-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300'>
-                      <div
-                        className='w-8 h-px mx-auto mb-3'
-                        style={{ background: 'rgba(158, 182, 169, 0.4)' }}
-                      />
-                      <p
-                        className='text-sm'
-                        style={{ color: 'rgba(234, 235, 236, 0.7)', fontWeight: 300 }}
-                      >
-                        {partner.description}
-                      </p>
-                    </div>
-
-                    {/* Hover glow */}
-                    <div
-                      className='absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none'
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(158, 182, 169, 0.05) 0%, transparent 50%)',
-                      }}
-                    />
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom decorative element */}
+        {/* Testimonials - editorial quote style */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className='flex justify-center mt-16 md:mt-24 px-6'
+          className='relative'
         >
-          <div className='flex flex-col items-center'>
-            <div
-              className='w-px h-16 mb-6'
-              style={{ background: 'linear-gradient(180deg, rgba(158, 182, 169, 0.3), transparent)' }}
-            />
-            <span
-              className='text-[10px] tracking-[0.3em] uppercase'
-              style={{ color: 'rgba(158, 182, 169, 0.4)' }}
-            >
-              {t('partners.moreComingSoon', 'More partnerships coming')}
-            </span>
+          {/* Quote container */}
+          <div className='relative border-l pl-6 md:pl-10' style={{ borderColor: `${GOLD}33` }}>
+            {/* Large decorative quote mark */}
+            <div className='absolute -left-2 -top-2 font-serif text-6xl md:text-8xl leading-none select-none' style={{ color: `${GOLD}1a` }}>
+              "
+            </div>
+
+            <AnimatePresence mode='wait'>
+              <motion.div
+                key={activeTestimonial}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+              >
+                <blockquote className='font-serif text-lg md:text-xl lg:text-2xl text-white/70 leading-relaxed mb-6 max-w-3xl'>
+                  {testimonials[activeTestimonial].quote}
+                </blockquote>
+
+                <div className='flex items-center gap-4'>
+                  <div className='w-8 h-px' style={{ background: `${GOLD}66` }} />
+                  <div>
+                    <p className='text-white/90 text-sm font-medium'>
+                      {testimonials[activeTestimonial].author}
+                    </p>
+                    <p className='text-white/40 text-xs'>
+                      {testimonials[activeTestimonial].role}, {testimonials[activeTestimonial].company}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Testimonial navigation - larger buttons */}
+            <div className='flex items-center gap-3 mt-10'>
+              {testimonials.map((testimonial, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveTestimonial(index)}
+                  className='relative h-10 flex items-center justify-center px-4 border transition-all duration-300'
+                  style={{
+                    borderColor: index === activeTestimonial ? `${GOLD}80` : 'rgba(255,255,255,0.1)',
+                    background: index === activeTestimonial ? `${GOLD}1a` : 'transparent',
+                  }}
+                  aria-label={`${t('partners.viewTestimonial', 'View testimonial from')} ${testimonial.author}`}
+                >
+                  <span
+                    className='text-xs tracking-wide transition-colors duration-300'
+                    style={{ color: index === activeTestimonial ? GOLD : 'rgba(255,255,255,0.4)' }}
+                  >
+                    {testimonial.author.split(' ')[0]}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
+        </motion.div>
+
+        {/* New collaborations teaser - subtle, centered */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className='mt-14 md:mt-16 flex items-center justify-center gap-3'
+        >
+          <div className='w-1.5 h-1.5 rounded-full animate-pulse' style={{ background: `${GOLD}66` }} />
+          <p className='text-white/25 text-xs tracking-wide italic'>
+            {t('partners.moreComingSoon', 'New collaborations in the works')}
+          </p>
         </motion.div>
       </div>
 
-      {/* Marquee animation styles */}
-      <style>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
+      {/* Subtle bottom border */}
+      <div className='absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent' />
     </section>
   );
 };

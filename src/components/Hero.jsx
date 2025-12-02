@@ -4,6 +4,10 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useTranslation } from 'react-i18next';
 
+// Consistent gold colors
+const GOLD = '#C9A961';
+const GOLD_LIGHT = '#E8D5A3';
+
 const Hero = () => {
   const { t, i18n } = useTranslation();
   const videoRef = useRef(null);
@@ -190,11 +194,11 @@ const Hero = () => {
               <div className='hero-overline opacity-0 translate-y-6 mb-6 flex items-center gap-4'>
                 <div
                   className='w-8 h-px'
-                  style={{ background: '#9EB6A9' }}
+                  style={{ background: GOLD }}
                 />
                 <span
                   className='text-[11px] md:text-xs tracking-[0.35em] uppercase font-medium'
-                  style={{ color: '#9EB6A9' }}
+                  style={{ color: GOLD }}
                 >
                   {t('hero.overline', 'Zurich, Switzerland')}
                 </span>
@@ -213,7 +217,7 @@ const Hero = () => {
                   </span>
                 </span>
                 <span className='block font-serif italic text-[clamp(3rem,8vw,7rem)] leading-[1] tracking-[-0.03em] mt-2'>
-                  <span style={{ color: '#9EB6A9' }}>
+                  <span style={{ color: GOLD }}>
                     {splitIntoWords(t('hero.titleLine3', 'brands'))}
                   </span>
                 </span>
@@ -225,12 +229,12 @@ const Hero = () => {
                   className='hero-divider h-px origin-left scale-x-0'
                   style={{
                     width: '120px',
-                    background: 'linear-gradient(90deg, #9EB6A9, rgba(158, 182, 169, 0.2))'
+                    background: `linear-gradient(90deg, ${GOLD}, ${GOLD}33)`
                   }}
                 />
                 <span
                   className='hero-divider text-[10px] tracking-[0.3em] uppercase opacity-0'
-                  style={{ color: 'rgba(158, 182, 169, 0.5)' }}
+                  style={{ color: `${GOLD}80` }}
                 >
                   Since 2024
                 </span>
@@ -254,7 +258,7 @@ const Hero = () => {
                   to={`/${i18n.language}/contact`}
                   className='hero-cta group relative inline-flex items-center justify-center px-10 py-4 opacity-0 translate-y-6 overflow-hidden'
                   style={{
-                    background: '#EAEBEC',
+                    background: `linear-gradient(135deg, ${GOLD_LIGHT}, ${GOLD})`,
                     color: '#0a0a0a',
                   }}
                 >
@@ -262,7 +266,8 @@ const Hero = () => {
                     {t('hero.ctaPrimary', 'Start a Project')}
                   </span>
                   <span
-                    className='absolute inset-0 bg-[#9EB6A9] transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out'
+                    className='absolute inset-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out'
+                    style={{ background: GOLD_LIGHT }}
                   />
                   <span className='relative z-10 ml-3 group-hover:translate-x-1 transition-transform duration-300'>
                     <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
@@ -279,8 +284,8 @@ const Hero = () => {
                     border: '1px solid rgba(234, 235, 236, 0.25)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(158, 182, 169, 0.6)';
-                    e.currentTarget.style.background = 'rgba(158, 182, 169, 0.1)';
+                    e.currentTarget.style.borderColor = `${GOLD}99`;
+                    e.currentTarget.style.background = `${GOLD}1a`;
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = 'rgba(234, 235, 236, 0.25)';
@@ -300,14 +305,14 @@ const Hero = () => {
         <div className='hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 z-40'>
           <span
             className='text-[10px] tracking-[0.35em] uppercase mb-3'
-            style={{ color: 'rgba(158, 182, 169, 0.7)' }}
+            style={{ color: `${GOLD}b3` }}
           >
             {t('hero.scroll', 'Scroll')}
           </span>
           <div className='relative w-5 h-8 rounded-full border border-white/20 flex justify-center'>
             <div
               className='w-1 h-2 rounded-full mt-1.5 animate-scroll-down'
-              style={{ background: '#9EB6A9' }}
+              style={{ background: GOLD }}
             />
           </div>
         </div>
@@ -320,17 +325,17 @@ const Hero = () => {
       >
         <span
           className='text-[10px] tracking-[0.4em] uppercase'
-          style={{ color: 'rgba(158, 182, 169, 0.5)' }}
+          style={{ color: `${GOLD}80` }}
         >
           Prestige Production
         </span>
         <div
           className='w-px h-16'
-          style={{ background: 'linear-gradient(180deg, transparent, rgba(158, 182, 169, 0.3), transparent)' }}
+          style={{ background: `linear-gradient(180deg, transparent, ${GOLD}4d, transparent)` }}
         />
         <span
           className='text-[10px] tracking-[0.4em] uppercase'
-          style={{ color: 'rgba(158, 182, 169, 0.5)' }}
+          style={{ color: `${GOLD}80` }}
         >
           Est. 2024
         </span>

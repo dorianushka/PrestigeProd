@@ -22,6 +22,7 @@ import Portfolio from './pages/Portfolio';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
 import SmiProject from './pages/SmiProject';
+import SmiProject2025 from './pages/SmiProject2025';
 import PenthouseZurichProject from './pages/PenthouseZurichProject';
 import WhyUs from './pages/WhyUs';
 import Privacy from './pages/Privacy';
@@ -61,6 +62,7 @@ const AppContent = () => {
         <Route path='why-us' element={<WhyUs />} />
         <Route path='privacy' element={<Privacy />} />
         <Route path='portfolio/smi' element={<SmiProject />} />
+        <Route path='portfolio/smi-2025' element={<SmiProject2025 />} />
         <Route
           path='portfolio/penthouse-zurich'
           element={<PenthouseZurichProject />}

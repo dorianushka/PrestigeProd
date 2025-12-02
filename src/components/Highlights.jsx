@@ -8,6 +8,10 @@ import { useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Consistent gold colors
+const GOLD = '#C9A961';
+const GOLD_LIGHT = '#E8D5A3';
+
 const Highlights = () => {
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
@@ -86,13 +90,13 @@ const Highlights = () => {
       {/* Cinematic spotlight beam */}
       <div className='spotlight-beam absolute top-0 left-1/2 -translate-x-1/2 w-[200vw] h-[80vh] pointer-events-none opacity-0'
         style={{
-          background: 'conic-gradient(from 180deg at 50% 0%, transparent 45%, rgba(158, 182, 169, 0.03) 48%, rgba(158, 182, 169, 0.06) 50%, rgba(158, 182, 169, 0.03) 52%, transparent 55%)',
+          background: `conic-gradient(from 180deg at 50% 0%, transparent 45%, ${GOLD}08 48%, ${GOLD}10 50%, ${GOLD}08 52%, transparent 55%)`,
         }}
       />
 
       {/* Subtle top border */}
       <div className='absolute top-0 left-0 w-full h-px opacity-10'
-        style={{ background: 'linear-gradient(90deg, transparent, #9EB6A9, transparent)' }}
+        style={{ background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }}
       />
 
       <div className='relative z-10 pt-16 md:pt-20 pb-16 md:pb-20'>
@@ -105,8 +109,8 @@ const Highlights = () => {
             <div>
               {/* Overline with accent */}
               <div className='highlights-overline flex items-center gap-3 mb-4'>
-                <div className='w-8 md:w-12 h-px bg-[#9EB6A9]/40' />
-                <span className='font-mono text-[10px] tracking-[0.3em] uppercase text-[#9EB6A9]'>
+                <div className='w-8 md:w-12 h-px' style={{ background: `${GOLD}66` }} />
+                <span className='font-mono text-[10px] tracking-[0.3em] uppercase' style={{ color: GOLD }}>
                   {t('highlights.overline', 'Selected Reels')}
                 </span>
               </div>
@@ -128,7 +132,7 @@ const Highlights = () => {
                     style={{
                       fontFamily: "'Cormorant Garamond', Georgia, serif",
                       fontWeight: 400,
-                      color: '#9EB6A9',
+                      color: GOLD,
                     }}
                   >
                     {t('highlights.titleLine2', 'Excellence')}
@@ -152,18 +156,18 @@ const Highlights = () => {
                   </span>
                   <span
                     className='absolute top-0 left-0 block text-sm tracking-[0.15em] uppercase translate-y-full transition-transform duration-500 group-hover:translate-y-0'
-                    style={{ color: '#9EB6A9' }}
+                    style={{ color: GOLD }}
                   >
                     {t('highlights.fullPortfolio', 'View Portfolio')}
                   </span>
                 </span>
                 <span
-                  className='w-10 h-px transition-all duration-500 group-hover:w-16 group-hover:bg-[#9EB6A9]'
-                  style={{ background: 'rgba(158, 182, 169, 0.4)' }}
+                  className='w-10 h-px transition-all duration-500 group-hover:w-16'
+                  style={{ background: `${GOLD}66` }}
                 />
                 <svg
-                  className='w-4 h-4 transition-all duration-500 group-hover:translate-x-2 group-hover:text-[#9EB6A9]'
-                  style={{ color: 'rgba(158, 182, 169, 0.6)' }}
+                  className='w-4 h-4 transition-all duration-500 group-hover:translate-x-2'
+                  style={{ color: `${GOLD}99` }}
                   fill='none'
                   stroke='currentColor'
                   viewBox='0 0 24 24'
@@ -185,18 +189,18 @@ const Highlights = () => {
                   </span>
                   <span
                     className='absolute top-0 left-0 block text-sm tracking-[0.15em] uppercase translate-y-full transition-transform duration-500 group-hover:translate-y-0'
-                    style={{ color: '#9EB6A9' }}
+                    style={{ color: GOLD }}
                   >
                     {t('highlights.ourServices', 'Our Services')}
                   </span>
                 </span>
                 <span
-                  className='w-10 h-px transition-all duration-500 group-hover:w-16 group-hover:bg-[#9EB6A9]'
-                  style={{ background: 'rgba(158, 182, 169, 0.4)' }}
+                  className='w-10 h-px transition-all duration-500 group-hover:w-16'
+                  style={{ background: `${GOLD}66` }}
                 />
                 <svg
-                  className='w-4 h-4 transition-all duration-500 group-hover:translate-x-2 group-hover:text-[#9EB6A9]'
-                  style={{ color: 'rgba(158, 182, 169, 0.6)' }}
+                  className='w-4 h-4 transition-all duration-500 group-hover:translate-x-2'
+                  style={{ color: `${GOLD}99` }}
                   fill='none'
                   stroke='currentColor'
                   viewBox='0 0 24 24'
@@ -229,7 +233,8 @@ const Highlights = () => {
             <div className='film-detail flex items-center gap-3'>
               <span className='font-mono text-[10px] tracking-wider text-white/25'>SWIPE TO EXPLORE</span>
               <svg
-                className='w-3.5 h-3.5 text-[#9EB6A9]/40'
+                className='w-3.5 h-3.5'
+                style={{ color: `${GOLD}66` }}
                 fill='none'
                 stroke='currentColor'
                 viewBox='0 0 24 24'

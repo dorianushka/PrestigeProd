@@ -7,6 +7,10 @@ import { pauseImg, playImg, replayImg } from '../utils';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Consistent gold colors
+const GOLD = '#C9A961';
+const GOLD_LIGHT = '#E8D5A3';
+
 const VideoCarousel = () => {
   const videoRef = useRef([]);
   const videoSpanRef = useRef([]);
@@ -323,7 +327,7 @@ const VideoCarousel = () => {
           className='flex-center py-4 px-6 rounded-full border'
           style={{
             background: 'rgba(10, 10, 10, 0.8)',
-            borderColor: 'rgba(158, 182, 169, 0.15)',
+            borderColor: `${GOLD}26`,
             backdropFilter: 'blur(12px)',
           }}
         >
@@ -331,13 +335,13 @@ const VideoCarousel = () => {
             <span
               key={i}
               className='mx-2 w-2.5 h-2.5 rounded-full relative cursor-pointer transition-all duration-300 hover:scale-125'
-              style={{ background: 'rgba(158, 182, 169, 0.25)' }}
+              style={{ background: `${GOLD}40` }}
               ref={el => (videoDivRef.current[i] = el)}
               onClick={() => handleProcess('set-video', i)}
             >
               <span
                 className='absolute h-full w-full rounded-full'
-                style={{ background: '#9EB6A9' }}
+                style={{ background: GOLD }}
                 ref={el => (videoSpanRef.current[i] = el)}
               />
             </span>
@@ -345,12 +349,14 @@ const VideoCarousel = () => {
         </div>
 
         <button
-          className='ml-4 p-3.5 rounded-full border transition-all duration-300 hover:border-[#9EB6A9]/40'
+          className='ml-4 p-3.5 rounded-full border transition-all duration-300'
           style={{
             background: 'rgba(10, 10, 10, 0.8)',
-            borderColor: 'rgba(158, 182, 169, 0.15)',
+            borderColor: `${GOLD}26`,
             backdropFilter: 'blur(12px)',
           }}
+          onMouseEnter={(e) => e.currentTarget.style.borderColor = `${GOLD}66`}
+          onMouseLeave={(e) => e.currentTarget.style.borderColor = `${GOLD}26`}
           onClick={
             isLastVideo
               ? () => handleProcess('video-reset')

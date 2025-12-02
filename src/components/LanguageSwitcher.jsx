@@ -3,6 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { trackLanguageChange } from '../utils/analytics';
 
+// Consistent gold colors
+const GOLD = '#C9A961';
+const GOLD_LIGHT = '#E8D5A3';
+
 const LanguageSwitcher = ({ isMobile = false }) => {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
@@ -60,11 +64,15 @@ const LanguageSwitcher = ({ isMobile = false }) => {
             <button
               key={language.code}
               onClick={() => changeLanguage(language.code)}
-              className={`px-4 py-2 text-[12px] uppercase tracking-[0.15em] rounded-full border transition-all duration-300 touch-manipulation ${
+              className={`px-4 py-2 text-[12px] uppercase tracking-[0.15em] border transition-all duration-300 touch-manipulation ${
                 language.code === i18n.language
-                  ? 'bg-pp-sage text-black border-pp-sage'
+                  ? 'text-black'
                   : 'bg-transparent text-white/60 border-white/20 hover:border-white/40 hover:text-white'
               }`}
+              style={language.code === i18n.language ? {
+                background: `linear-gradient(135deg, ${GOLD_LIGHT}, ${GOLD})`,
+                borderColor: GOLD
+              } : {}}
             >
               {language.short}
             </button>
@@ -113,7 +121,7 @@ const LanguageSwitcher = ({ isMobile = false }) => {
         }`}
       >
         {/* Decorative top line */}
-        <div className='h-px w-full bg-gradient-to-r from-transparent via-pp-sage/40 to-transparent' />
+        <div className='h-px w-full' style={{ background: `linear-gradient(to right, transparent, ${GOLD}66, transparent)` }} />
 
         <div className='py-2' role='listbox'>
           {languages.map(language => (
@@ -122,9 +130,10 @@ const LanguageSwitcher = ({ isMobile = false }) => {
               onClick={() => changeLanguage(language.code)}
               className={`w-full flex items-center justify-between px-4 py-2.5 text-left transition-all duration-200 group ${
                 language.code === i18n.language
-                  ? 'text-pp-sage'
+                  ? ''
                   : 'text-white/60 hover:text-white hover:bg-white/5'
               }`}
+              style={language.code === i18n.language ? { color: GOLD } : {}}
               role='option'
               aria-selected={language.code === i18n.language}
             >
@@ -135,7 +144,7 @@ const LanguageSwitcher = ({ isMobile = false }) => {
                 <span className='text-sm'>{language.name}</span>
               </div>
               {language.code === i18n.language && (
-                <span className='w-1.5 h-1.5 rounded-full bg-pp-sage' />
+                <span className='w-1.5 h-1.5 rounded-full' style={{ background: GOLD }} />
               )}
             </button>
           ))}

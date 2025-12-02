@@ -3,6 +3,10 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+// Consistent gold colors
+const GOLD = '#C9A961';
+const GOLD_LIGHT = '#E8D5A3';
+
 const ValueProposition = () => {
   const { t, i18n } = useTranslation();
 
@@ -32,7 +36,7 @@ const ValueProposition = () => {
         <div
           className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-[0.03]'
           style={{
-            background: 'radial-gradient(circle, #9EB6A9 0%, transparent 70%)',
+            background: `radial-gradient(circle, ${GOLD} 0%, transparent 70%)`,
           }}
         />
 
@@ -46,7 +50,7 @@ const ValueProposition = () => {
             {/* Overline */}
             <span
               className='inline-block text-[11px] tracking-[0.3em] uppercase mb-8'
-              style={{ color: '#9EB6A9' }}
+              style={{ color: GOLD }}
             >
               {t('valueProposition.overline', 'Our Philosophy')}
             </span>
@@ -62,7 +66,7 @@ const ValueProposition = () => {
             {/* Divider */}
             <div
               className='w-16 h-px mx-auto'
-              style={{ background: 'linear-gradient(90deg, transparent, #9EB6A9, transparent)' }}
+              style={{ background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)` }}
             />
           </motion.div>
         </div>
@@ -83,7 +87,7 @@ const ValueProposition = () => {
               >
                 <span
                   className='inline-block text-[11px] tracking-[0.3em] uppercase mb-6'
-                  style={{ color: '#9EB6A9' }}
+                  style={{ color: GOLD }}
                 >
                   {t('valueProposition.capabilitiesOverline', 'What We Offer')}
                 </span>
@@ -95,7 +99,7 @@ const ValueProposition = () => {
                 </h3>
                 <div
                   className='w-12 h-px'
-                  style={{ background: 'linear-gradient(90deg, #9EB6A9, transparent)' }}
+                  style={{ background: `linear-gradient(90deg, ${GOLD}, transparent)` }}
                 />
               </motion.div>
             </div>
@@ -116,7 +120,7 @@ const ValueProposition = () => {
                       {/* Number */}
                       <span
                         className='text-sm font-light tracking-wider pt-1'
-                        style={{ color: 'rgba(158, 182, 169, 0.5)' }}
+                        style={{ color: `${GOLD}80` }}
                       >
                         {capability.number}
                       </span>
@@ -124,8 +128,10 @@ const ValueProposition = () => {
                       {/* Content */}
                       <div className='flex-1'>
                         <h4
-                          className='font-serif text-2xl md:text-3xl leading-tight tracking-[-0.01em] mb-4 transition-colors duration-300 group-hover:text-[#9EB6A9]'
+                          className='font-serif text-2xl md:text-3xl leading-tight tracking-[-0.01em] mb-4 transition-colors duration-300'
                           style={{ color: '#EAEBEC' }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = GOLD}
+                          onMouseLeave={(e) => e.currentTarget.style.color = '#EAEBEC'}
                         >
                           {capability.title}
                         </h4>
@@ -168,7 +174,7 @@ const ValueProposition = () => {
               <div
                 className='font-serif text-[clamp(6rem,15vw,12rem)] leading-none tracking-[-0.03em]'
                 style={{
-                  background: 'linear-gradient(135deg, #9EB6A9 0%, #205C57 50%, #9EB6A9 100%)',
+                  background: `linear-gradient(135deg, ${GOLD_LIGHT} 0%, ${GOLD} 50%, ${GOLD_LIGHT} 100%)`,
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -193,7 +199,7 @@ const ValueProposition = () => {
             >
               <span
                 className='inline-block text-[11px] tracking-[0.3em] uppercase mb-8'
-                style={{ color: '#9EB6A9' }}
+                style={{ color: GOLD }}
               >
                 {t('valueProposition.trustedByOverline', 'Trusted By')}
               </span>
@@ -245,7 +251,7 @@ const ValueProposition = () => {
                 to={`/${i18n.language}/contact`}
                 className='group relative inline-flex items-center justify-center px-10 py-5 overflow-hidden transition-all duration-300'
                 style={{
-                  background: '#EAEBEC',
+                  background: `linear-gradient(135deg, ${GOLD_LIGHT}, ${GOLD})`,
                   color: '#0a0a0a',
                 }}
               >
@@ -253,7 +259,8 @@ const ValueProposition = () => {
                   {t('valueProposition.ctaPrimary', 'Get Your Quote')}
                 </span>
                 <span
-                  className='absolute inset-0 bg-[#9EB6A9] transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out'
+                  className='absolute inset-0 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out'
+                  style={{ background: GOLD_LIGHT }}
                 />
                 <span className='relative z-10 ml-3 group-hover:translate-x-1 transition-transform duration-300'>
                   <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>

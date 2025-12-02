@@ -3,8 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { logoImg } from '../utils';
 
+// Consistent gold colors
+const GOLD = '#C9A961';
+const GOLD_LIGHT = '#E8D5A3';
+
 const Footer = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const location = useLocation();
   const currentLang = location.pathname.split('/')[1] || 'en';
 
@@ -63,87 +67,72 @@ const Footer = () => {
 
   return (
     <footer className='relative bg-black text-white overflow-hidden'>
-      {/* Background texture overlay */}
-      <div className='absolute inset-0 opacity-[0.02]' style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+      {/* Subtle noise texture */}
+      <div className='absolute inset-0 opacity-[0.015]' style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
       }} />
 
-      {/* Top decorative border */}
-      <div className='relative h-px w-full'>
-        <div className='absolute inset-0 bg-gradient-to-r from-transparent via-pp-sage/30 to-transparent' />
-      </div>
+      {/* Top border accent */}
+      <div className='h-px w-full' style={{ background: `linear-gradient(to right, transparent, ${GOLD}33, transparent)` }} />
 
       {/* Main footer content */}
-      <div className='relative max-w-7xl mx-auto px-6 lg:px-10'>
+      <div className='relative max-w-6xl mx-auto px-6 md:px-10'>
 
-        {/* Upper section - Brand statement */}
-        <div className='py-16 lg:py-24 border-b border-white/5'>
-          <div className='grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-end'>
-            {/* Brand column */}
-            <div className='lg:col-span-5'>
-              <Link to={`/${currentLang}/`} className='inline-flex items-center gap-4 group mb-8'>
-                <img src={logoImg} alt='Prestige Production' className='w-10 h-10' />
-                <span className='font-serif text-2xl tracking-wide text-white/90 group-hover:text-white transition-colors'>
-                  Prestige Production
-                </span>
+        {/* Compact CTA banner */}
+        <div className='py-10 md:py-14 border-b border-white/[0.04]'>
+          <div className='flex flex-col md:flex-row items-start md:items-center justify-between gap-6'>
+            {/* Left - Logo & tagline */}
+            <div className='flex items-center gap-5'>
+              <Link to={`/${currentLang}/`} className='flex-shrink-0'>
+                <img src={logoImg} alt='Prestige Production' className='w-9 h-9 opacity-80' />
               </Link>
-
-              <p className='font-serif text-2xl lg:text-3xl text-white/60 leading-relaxed max-w-md'>
+              <div className='h-8 w-px bg-white/10' />
+              <p className='font-serif text-base md:text-lg text-white/50 max-w-xs'>
                 {t('footer.description', 'Artistry in every pixel, excellence in every frame.')}
               </p>
             </div>
 
-            {/* Decorative element - film strip */}
-            <div className='hidden lg:flex lg:col-span-2 justify-center'>
-              <div className='relative w-px h-32'>
-                <div className='absolute inset-0 bg-gradient-to-b from-pp-sage/40 via-pp-sage/20 to-transparent' />
-                {/* Film sprocket holes */}
-                <div className='absolute -left-1 top-4 w-2 h-2 rounded-full border border-pp-sage/30' />
-                <div className='absolute -left-1 top-12 w-2 h-2 rounded-full border border-pp-sage/30' />
-                <div className='absolute -left-1 top-20 w-2 h-2 rounded-full border border-pp-sage/30' />
-              </div>
-            </div>
-
-            {/* Contact CTA */}
-            <div className='lg:col-span-5 lg:text-right'>
-              <p className='text-[11px] uppercase tracking-[0.25em] text-white/40 mb-4'>
-                {t('footer.cta.subtitle', 'Ready to create?')}
-              </p>
-              <Link
-                to={`/${currentLang}/contact`}
-                className='group inline-flex items-center gap-4'
-              >
-                <span className='font-serif text-3xl lg:text-4xl text-white/80 group-hover:text-pp-sage transition-colors duration-500'>
-                  {t('footer.cta.title', "Let's talk")}
-                </span>
-                <span className='flex items-center justify-center w-12 h-12 rounded-full border border-white/20 group-hover:border-pp-sage group-hover:bg-pp-sage transition-all duration-500'>
-                  <svg className='w-5 h-5 text-white group-hover:text-black transition-colors duration-500 group-hover:translate-x-0.5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
-                  </svg>
-                </span>
-              </Link>
-            </div>
+            {/* Right - CTA */}
+            <Link
+              to={`/${currentLang}/contact`}
+              className='group inline-flex items-center gap-3 px-5 py-2.5 border transition-all duration-500'
+              style={{ borderColor: 'rgba(255,255,255,0.1)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = `${GOLD}66`;
+                e.currentTarget.style.background = `${GOLD}0d`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                e.currentTarget.style.background = 'transparent';
+              }}
+            >
+              <span className='text-sm text-white/70 group-hover:text-white transition-colors'>
+                {t('footer.cta.title', "Let's talk")}
+              </span>
+              <svg className='w-4 h-4 group-hover:translate-x-0.5 transition-all' style={{ color: `${GOLD}99` }} fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M17 8l4 4m0 0l-4 4m4-4H3' />
+              </svg>
+            </Link>
           </div>
         </div>
 
-        {/* Middle section - Navigation grid */}
-        <div className='py-12 lg:py-16 border-b border-white/5'>
-          <div className='grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12'>
+        {/* Navigation grid - more compact */}
+        <div className='py-10 md:py-12 border-b border-white/[0.04]'>
+          <div className='grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10'>
 
             {/* Services */}
             <div>
-              <h4 className='text-[11px] uppercase tracking-[0.25em] text-pp-sage mb-6'>
+              <h4 className='text-[10px] uppercase tracking-[0.2em] mb-4' style={{ color: `${GOLD}cc` }}>
                 {t('footer.services.title')}
               </h4>
-              <nav className='space-y-3'>
+              <nav className='space-y-2'>
                 {serviceLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
-                    className='group flex items-center gap-2 text-white/50 hover:text-white transition-colors duration-300'
+                    className='block text-sm text-white/40 hover:text-white/80 transition-colors duration-300'
                   >
-                    <span className='w-0 h-px bg-pp-sage group-hover:w-3 transition-all duration-300' />
-                    <span className='text-sm'>{link.name}</span>
+                    {link.name}
                   </a>
                 ))}
               </nav>
@@ -151,18 +140,17 @@ const Footer = () => {
 
             {/* Company */}
             <div>
-              <h4 className='text-[11px] uppercase tracking-[0.25em] text-pp-sage mb-6'>
+              <h4 className='text-[10px] uppercase tracking-[0.2em] mb-4' style={{ color: `${GOLD}cc` }}>
                 {t('footer.company.title')}
               </h4>
-              <nav className='space-y-3'>
+              <nav className='space-y-2'>
                 {navigationLinks.map((link) => (
                   <Link
                     key={link.name}
                     to={link.href}
-                    className='group flex items-center gap-2 text-white/50 hover:text-white transition-colors duration-300'
+                    className='block text-sm text-white/40 hover:text-white/80 transition-colors duration-300'
                   >
-                    <span className='w-0 h-px bg-pp-sage group-hover:w-3 transition-all duration-300' />
-                    <span className='text-sm'>{link.name}</span>
+                    {link.name}
                   </Link>
                 ))}
               </nav>
@@ -170,47 +158,45 @@ const Footer = () => {
 
             {/* Contact */}
             <div>
-              <h4 className='text-[11px] uppercase tracking-[0.25em] text-pp-sage mb-6'>
+              <h4 className='text-[10px] uppercase tracking-[0.2em] mb-4' style={{ color: `${GOLD}cc` }}>
                 {t('footer.connect')}
               </h4>
-              <div className='space-y-3'>
+              <div className='space-y-2'>
                 <a
                   href='tel:+41762021959'
-                  className='block text-sm text-white/50 hover:text-white transition-colors duration-300'
+                  className='block text-sm text-white/40 hover:text-white/80 transition-colors duration-300'
                 >
                   {t('footer.contact.phone')}
                 </a>
                 <a
                   href='mailto:info@prestigeproduction.ch'
-                  className='block text-sm text-white/50 hover:text-white transition-colors duration-300'
+                  className='block text-sm text-white/40 hover:text-white/80 transition-colors duration-300'
                 >
                   {t('footer.contact.email')}
                 </a>
-                <p className='text-sm text-white/50'>{t('footer.contact.location')}</p>
+                <p className='text-sm text-white/40'>{t('footer.contact.location')}</p>
               </div>
             </div>
 
             {/* Social */}
             <div>
-              <h4 className='text-[11px] uppercase tracking-[0.25em] text-pp-sage mb-6'>
+              <h4 className='text-[10px] uppercase tracking-[0.2em] mb-4' style={{ color: `${GOLD}cc` }}>
                 Social
               </h4>
-              <div className='flex flex-wrap gap-2'>
+              <div className='flex gap-1'>
                 {socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.href}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='group relative w-10 h-10 flex items-center justify-center'
+                    className='w-9 h-9 flex items-center justify-center text-white/30 hover:bg-white/[0.03] transition-all duration-300'
+                    style={{ '--hover-color': GOLD }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = GOLD}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.3)'}
                     aria-label={social.name}
                   >
-                    {/* Background circle */}
-                    <span className='absolute inset-0 rounded-full border border-white/10 group-hover:border-pp-sage/50 group-hover:bg-pp-sage/10 transition-all duration-300' />
-                    {/* Icon */}
-                    <span className='relative text-white/50 group-hover:text-pp-sage transition-colors duration-300'>
-                      {social.icon}
-                    </span>
+                    {social.icon}
                   </a>
                 ))}
               </div>
@@ -218,35 +204,23 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom section - Copyright */}
-        <div className='py-6 lg:py-8'>
-          <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
-            {/* Copyright */}
-            <p className='text-[11px] uppercase tracking-[0.15em] text-white/30'>
-              {t('footer.legal.copyright')}
-            </p>
-
-            {/* Legal + Made with love */}
-            <div className='flex items-center gap-6'>
+        {/* Bottom bar - minimal */}
+        <div className='py-5'>
+          <div className='flex flex-col sm:flex-row justify-between items-center gap-3 text-[10px] uppercase tracking-[0.15em] text-white/25'>
+            <p>{t('footer.legal.copyright')}</p>
+            <div className='flex items-center gap-4'>
               <Link
                 to={`/${currentLang}/privacy`}
-                className='text-[11px] uppercase tracking-[0.15em] text-white/30 hover:text-white/60 transition-colors duration-300'
+                className='hover:text-white/50 transition-colors duration-300'
               >
                 {t('footer.legal.privacy')}
               </Link>
-
-              <span className='text-white/10'>|</span>
-
-              <span className='text-[11px] uppercase tracking-[0.15em] text-white/30'>
-                Zurich, CH
-              </span>
+              <span className='text-white/10'>·</span>
+              <span>Zurich, CH</span>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Bottom accent line */}
-      <div className='h-px w-full bg-gradient-to-r from-transparent via-pp-sage/20 to-transparent' />
     </footer>
   );
 };
