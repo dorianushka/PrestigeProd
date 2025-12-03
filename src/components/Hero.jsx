@@ -69,10 +69,10 @@ const Hero = () => {
         duration: 1.4,
         ease: 'power3.inOut'
       }, 0.8)
-      // Video fades in with scale
+      // Video fades in
       .fromTo('.hero-video-wrapper',
-        { scale: 1.1, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 2, ease: 'power2.out' },
+        { opacity: 0 },
+        { opacity: 1, duration: 2, ease: 'power2.out' },
         0.6
       )
       // Spotlight fades in
@@ -80,11 +80,6 @@ const Hero = () => {
         opacity: 1,
         duration: 1.5
       }, 1.5)
-      // Vignette intensifies
-      .to('.hero-vignette', {
-        opacity: 1,
-        duration: 1.5
-      }, 1)
       // Content reveals with stagger
       .to('.hero-overline', {
         opacity: 1,
@@ -187,7 +182,7 @@ const Hero = () => {
             filter: 'saturate(0.4) contrast(1.15) brightness(0.6)',
           }}
         >
-          <source src='/assets/videos/hero-city-aerial.mp4' type='video/mp4' />
+          <source src='https://d3s4b11bryqgrg.cloudfront.net/videos/270940_medium.mp4' type='video/mp4' />
         </video>
 
         {/* Warm gold tint overlay */}
@@ -229,22 +224,7 @@ const Hero = () => {
         }}
       />
 
-      {/* Cinematic vignette */}
-      <div
-        className='hero-vignette absolute inset-0 pointer-events-none opacity-0 z-10'
-        style={{
-          boxShadow: 'inset 0 0 200px 60px rgba(0,0,0,0.6)',
-        }}
-      />
 
-      {/* Film grain overlay */}
-      <div
-        className='absolute inset-0 pointer-events-none z-20 opacity-[0.04]'
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          animation: 'grain 0.5s steps(1) infinite',
-        }}
-      />
 
       {/* Main content */}
       <div className='hero-content-wrapper relative z-30 h-full flex flex-col'>
@@ -379,27 +359,114 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Editorial side element */}
+      {/* Editorial side element - Premium Emblem */}
       <div
-        className='hero-side-element absolute right-6 md:right-12 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-4 opacity-0 z-30'
-        style={{ writingMode: 'vertical-rl' }}
+        className='hero-side-element absolute right-6 md:right-12 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center opacity-0 z-30'
       >
-        <span
-          className='text-[10px] tracking-[0.4em] uppercase'
-          style={{ color: `${GOLD}80` }}
-        >
-          Prestige Production
-        </span>
+        {/* Decorative top line - animated pulse */}
         <div
-          className='w-px h-16'
-          style={{ background: `linear-gradient(180deg, transparent, ${GOLD}4d, transparent)` }}
+          className='w-px h-20 emblem-line-top'
+          style={{ background: `linear-gradient(180deg, transparent, ${GOLD}66)` }}
         />
-        <span
-          className='text-[10px] tracking-[0.4em] uppercase'
-          style={{ color: `${GOLD}80` }}
+
+        {/* Main emblem container */}
+        <div
+          className='relative py-6 px-3 flex flex-col items-center emblem-container'
+          style={{
+            borderTop: `1px solid ${GOLD}40`,
+            borderBottom: `1px solid ${GOLD}40`,
+          }}
         >
-          Est. 2024
-        </span>
+          {/* Shimmer overlay */}
+          <div className='absolute inset-0 emblem-shimmer overflow-hidden pointer-events-none'>
+            <div
+              className='absolute inset-0 -translate-x-full'
+              style={{
+                background: `linear-gradient(90deg, transparent, ${GOLD}20, transparent)`,
+                animation: 'emblem-shimmer 4s ease-in-out infinite',
+              }}
+            />
+          </div>
+
+          {/* Corner accents - animated */}
+          <div className='emblem-corner emblem-corner-tl absolute top-0 left-0 w-2 h-2' style={{ borderTop: `1px solid ${GOLD}`, borderLeft: `1px solid ${GOLD}` }} />
+          <div className='emblem-corner emblem-corner-tr absolute top-0 right-0 w-2 h-2' style={{ borderTop: `1px solid ${GOLD}`, borderRight: `1px solid ${GOLD}` }} />
+          <div className='emblem-corner emblem-corner-bl absolute bottom-0 left-0 w-2 h-2' style={{ borderBottom: `1px solid ${GOLD}`, borderLeft: `1px solid ${GOLD}` }} />
+          <div className='emblem-corner emblem-corner-br absolute bottom-0 right-0 w-2 h-2' style={{ borderBottom: `1px solid ${GOLD}`, borderRight: `1px solid ${GOLD}` }} />
+
+          {/* Diamond accent - spinning */}
+          <div
+            className='w-2 h-2 mb-4 emblem-diamond'
+            style={{
+              border: `1px solid ${GOLD}`,
+              background: `${GOLD}20`,
+              animation: 'emblem-spin 8s linear infinite',
+            }}
+          />
+
+          {/* Text - vertical with glow pulse */}
+          <div style={{ writingMode: 'vertical-rl' }} className='flex flex-col items-center gap-3'>
+            <span
+              className='text-[11px] tracking-[0.5em] uppercase font-medium emblem-text-glow'
+              style={{
+                color: GOLD,
+              }}
+            >
+              Prestige
+            </span>
+            <span
+              className='text-[11px] tracking-[0.5em] uppercase font-medium emblem-text-glow'
+              style={{
+                color: GOLD_LIGHT,
+                animationDelay: '0.5s',
+              }}
+            >
+              Production
+            </span>
+          </div>
+
+          {/* Small divider - pulsing width */}
+          <div
+            className='h-px my-4 emblem-divider'
+            style={{
+              background: `linear-gradient(90deg, transparent, ${GOLD}, transparent)`,
+              animation: 'emblem-divider-pulse 3s ease-in-out infinite',
+            }}
+          />
+
+          {/* Est badge - subtle breathing */}
+          <div
+            className='px-3 py-1.5 relative emblem-badge'
+            style={{
+              border: `1px solid ${GOLD}60`,
+              background: `linear-gradient(135deg, ${GOLD}08, ${GOLD}15)`,
+              animation: 'emblem-badge-glow 3s ease-in-out infinite',
+            }}
+          >
+            <span
+              className='text-[10px] tracking-[0.35em] uppercase font-semibold'
+              style={{ color: GOLD_LIGHT }}
+            >
+              Est. 2024
+            </span>
+          </div>
+
+          {/* Diamond accent bottom - counter spinning */}
+          <div
+            className='w-2 h-2 mt-4 emblem-diamond'
+            style={{
+              border: `1px solid ${GOLD}`,
+              background: `${GOLD}20`,
+              animation: 'emblem-spin-reverse 8s linear infinite',
+            }}
+          />
+        </div>
+
+        {/* Decorative bottom line - animated pulse */}
+        <div
+          className='w-px h-20 emblem-line-bottom'
+          style={{ background: `linear-gradient(180deg, ${GOLD}66, transparent)` }}
+        />
       </div>
 
       {/* CSS for animations */}
@@ -425,6 +492,87 @@ const Hero = () => {
 
         .animate-scroll-down {
           animation: scroll-down 1.5s ease-in-out infinite;
+        }
+
+        /* Emblem animations */
+        @keyframes emblem-spin {
+          from { transform: rotate(45deg); }
+          to { transform: rotate(405deg); }
+        }
+
+        @keyframes emblem-spin-reverse {
+          from { transform: rotate(45deg); }
+          to { transform: rotate(-315deg); }
+        }
+
+        @keyframes emblem-shimmer {
+          0% { transform: translateX(-100%); }
+          50%, 100% { transform: translateX(100%); }
+        }
+
+        @keyframes emblem-text-glow {
+          0%, 100% {
+            text-shadow: 0 0 20px rgba(201, 169, 97, 0.3);
+            filter: brightness(1);
+          }
+          50% {
+            text-shadow: 0 0 40px rgba(201, 169, 97, 0.6), 0 0 60px rgba(201, 169, 97, 0.3);
+            filter: brightness(1.15);
+          }
+        }
+
+        @keyframes emblem-divider-pulse {
+          0%, 100% { width: 24px; opacity: 0.8; }
+          50% { width: 32px; opacity: 1; }
+        }
+
+        @keyframes emblem-badge-glow {
+          0%, 100% {
+            box-shadow: 0 0 10px rgba(201, 169, 97, 0.1);
+          }
+          50% {
+            box-shadow: 0 0 20px rgba(201, 169, 97, 0.3), inset 0 0 10px rgba(201, 169, 97, 0.1);
+          }
+        }
+
+        @keyframes emblem-line-pulse {
+          0%, 100% { opacity: 0.4; transform: scaleY(1); }
+          50% { opacity: 0.8; transform: scaleY(1.1); }
+        }
+
+        .emblem-text-glow {
+          animation: emblem-text-glow 3s ease-in-out infinite;
+        }
+
+        .emblem-line-top {
+          animation: emblem-line-pulse 4s ease-in-out infinite;
+          transform-origin: bottom;
+        }
+
+        .emblem-line-bottom {
+          animation: emblem-line-pulse 4s ease-in-out infinite 0.5s;
+          transform-origin: top;
+        }
+
+        .emblem-corner {
+          transition: all 0.3s ease;
+        }
+
+        .emblem-container:hover .emblem-corner-tl {
+          transform: translate(-2px, -2px);
+        }
+        .emblem-container:hover .emblem-corner-tr {
+          transform: translate(2px, -2px);
+        }
+        .emblem-container:hover .emblem-corner-bl {
+          transform: translate(-2px, 2px);
+        }
+        .emblem-container:hover .emblem-corner-br {
+          transform: translate(2px, 2px);
+        }
+
+        .emblem-container:hover .emblem-diamond {
+          animation-duration: 2s !important;
         }
       `}</style>
     </section>
