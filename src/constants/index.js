@@ -181,7 +181,8 @@ export const projects = [
   {
     id: 1,
     title: 'Swiss Mining Institute 2025',
-    video: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/smi_2025_teaser_vertical.mp4`,
+    video: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/SMI_NOV_2025_OFFICIAL_TEASER.mp4`,
+    image: '/assets/images/SMI_NOV_2025_thumbnail.png',
     link: '/portfolio/smi-2025',
     category: 'events',
     typeKey: 'portfolio.types.eventProduction',

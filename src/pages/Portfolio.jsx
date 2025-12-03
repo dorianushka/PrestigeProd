@@ -32,7 +32,8 @@ const Portfolio = () => {
   const socialReels = [
     {
       id: 'reel-smi-2025',
-      src: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/smi_2025_teaser_vertical.mp4`,
+      src: `${import.meta.env.VITE_CLOUDFRONT_URL}/videos/SMI_NOV_2025_OFFICIAL_TEASER.mp4`,
+      poster: '/assets/images/SMI_NOV_2025_thumbnail.png',
       title: t('portfolio.reels.smi2025.title', 'SMI 2025 Gala Dinner & Afterparty'),
       category: 'social',
       type: t('portfolio.reels.eventTeaser', 'Event Teaser'),
@@ -355,6 +356,7 @@ const Portfolio = () => {
                               muted
                               loop
                               preload="metadata"
+                              poster={proj.image}
                               className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                             >
                               <source src={proj.video} type="video/mp4" />
@@ -563,6 +565,7 @@ const Portfolio = () => {
                           {/* Video */}
                           <video
                             src={reel.src}
+                            poster={reel.poster}
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             playsInline
                             muted

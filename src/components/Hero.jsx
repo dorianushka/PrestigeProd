@@ -187,7 +187,7 @@ const Hero = () => {
             filter: 'saturate(0.4) contrast(1.15) brightness(0.6)',
           }}
         >
-          <source src='/assets/videos/Reel_1_penthouse_view.mp4' type='video/mp4' />
+          <source src='/assets/videos/hero-city-aerial.mp4' type='video/mp4' />
         </video>
 
         {/* Warm gold tint overlay */}
